@@ -1,0 +1,127 @@
+
+
+.left_content{
+    margin-top:10px;
+    padding:10px;
+    float:left;
+    width:70%;
+}
+
+.right_side{
+    margin-top:10px;
+    padding:10px;
+    float:left;
+    width:25%;    
+}
+
+.right_top_content{    
+    float:left;
+    width:100%;    
+}
+
+.right_content{  
+    padding:5px;  
+    float:left;
+    width:100%;
+    border: #B3B3B3 dashed 2px;
+}
+
+.right_side_content{
+    /*-moz-border-radius: 5px;
+    border-radius: 15px;
+    border: solid 2px;
+    background-image: linear-gradient(bottom, rgb(245,222,206) 36%, rgb(252,174,174) 68%, rgb(250,161,147) 84%);
+    background-image: -o-linear-gradient(bottom, rgb(245,222,206) 36%, rgb(252,174,174) 68%, rgb(250,161,147) 84%);
+    background-image: -moz-linear-gradient(bottom, rgb(245,222,206) 36%, rgb(252,174,174) 68%, rgb(250,161,147) 84%);
+    background-image: -webkit-linear-gradient(bottom, rgb(245,222,206) 36%, rgb(252,174,174) 68%, rgb(250,161,147) 84%);
+    background-image: -ms-linear-gradient(bottom, rgb(245,222,206) 36%, rgb(252,174,174) 68%, rgb(250,161,147) 84%);
+    
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.36, rgb(245,222,206)),
+        color-stop(0.68, rgb(252,174,174)),
+        color-stop(0.84, rgb(250,161,147))
+);*/
+    color: #760000;
+    font-size:1.1em;
+}
+
+.title{
+    font-size:1.5em;
+    font-weight:bold;
+    color: #000;
+}
+
+.sub_title{
+    font-size:1.2em;
+    color: #000;
+}
+
+.p_content{
+    font-size:13px;
+}
+
+.cg_big_container{
+    width:100%;
+    height:70px;
+    padding:5px;
+}
+
+.cg_small_container{
+    float:left;
+    width:110px;
+    list-style-type:square;
+}
+
+.min_big_container{
+    width:100%;
+    height:70px;
+    padding:5px;
+}
+
+.min_small_container{
+    float:left;
+    width:170px;
+    list-style-type:square;
+}
+
+.container_content{
+    padding:15px 15px 15px 0;
+    list-style-type:square;
+    border-bottom: 1px solid;
+}
+
+.thumb_event{
+    float:left;
+    width: 115px;
+    padding:15px 15px 0px 0;
+}
+
+.container_content_event{
+    float:left;
+    padding:15px 15px 0px 0;
+    list-style-type:square;
+}
+
+.prayer{
+    background-color:#85362F;
+    color:#FFF;
+    padding:5px;
+    text-align:center;
+    font-size:1.2em;
+    -moz-border-radius: 5px;
+    border-radius: 15px;
+    border: solid 2px #F5DECE;
+    margin-bottom:10px;
+    cursor: pointer;
+}
+
+.ministries{
+    float:left;
+    padding: 15px;
+    border: #B3B3B3 dashed 2px;
+    width:350px;
+    text-align: center;
+}

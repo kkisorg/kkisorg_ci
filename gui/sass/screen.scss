@@ -1,0 +1,266 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+
+
+//variables
+$wrapWidth:960px;
+$sideWidth:320px;
+$radius:4px;
+$borderColor:#CBC9CF;
+
+//typography
+@import url(http://fonts.googleapis.com/css?family=Oswald:700,300);
+
+.text-content{
+  $colorHead:#B82525;
+  $colorText:#404040;
+  @extend .debossFx;
+  h2{
+    font-family:'Oswald',sans-serif;
+    font-size:48px;
+    color:$colorHead;
+    margin:0.2em 0px;
+    &:first-child{
+      margin-top:none;
+    }
+  }
+  h3{
+    font-family:'Oswald',sans-serif;
+    font-size:36px;
+    font-weight:300;
+    color:tint($colorText,50%);
+    margin:0.2em 0px;
+  }
+  
+  p, li{
+    $pSize:14px;
+    font-family:Arial, sans-serif;
+    font-size:$pSize;
+    color:$colorText;
+    line-height:$pSize*1.625;
+    
+  }
+  img{
+    float:left;
+    padding-right:20px;
+  }
+}
+
+.text-boxSide{
+  $text-color:#404040;
+  font-family:Arial,Helvetica, sans-serif;
+  text-align:center;
+  color:$text-color;
+  h2{
+    font-family:'Oswald',sans-serif;
+    font-size:21px;
+    @extend .debossFx;
+  }
+  h3{
+    font-family:'Oswald',sans-serif;
+    font-size:16px;
+  }
+  a{
+    display:block;
+    text-decoration:none;
+    color:$text-color;
+    @extend .debossFx;
+  }
+}
+
+.text-nav{
+	$textColor:#FFF;
+	
+	color:$textColor;
+	a{
+		color:$textColor;
+		font-family:'Oswald',sans-serif;
+		font-size:14px;
+		text-decoration:none;
+		margin:0 0.2em;
+		padding:4px 10px;
+		@include border-radius(4px);
+		@include transition-property(all);
+    	@include transition-duration(0.3s);
+    	@include transition-timing-function(ease-in);
+		&:hover{
+			@extend .navHover;
+		}
+	}
+}
+
+.text-footer{
+  $colorText:#404040;
+  p, li{
+    $pSize:14px;
+    font-family:Arial, sans-serif;
+    font-size:$pSize;
+    color:$colorText;
+    line-height:$pSize*1.625;
+  }
+}
+
+//utilities
+.clear{ clear:both; }
+
+//visual elements
+.navHover{
+	background-color:#FFF;
+	@include border-radius(3px);
+	color:#B82525;
+}
+
+.roundBox{
+  @include border-radius($radius);
+  border:1px solid $borderColor;
+}
+.debossFx{
+  @include text-shadow(#FFF 0 1px 0);
+}
+
+.boxSide{
+  /*variables*/
+  $bgColor:#EEEDEB;
+  $bgColorTint:tint($bgColor,50%);
+  
+  width:$sideWidth;
+  background-color:$bgColor;
+  @extend .roundBox;
+  
+  h2{
+    padding:10px 0;
+    @extend .roundBox;
+    border-top:2px solid #FFF;
+    border-bottom:1px solid $borderColor;
+    border-left:none;
+    border-right:none;
+    @include background-image(linear-gradient(#EBEAE8, #DDDCDA));
+  }
+  
+  li{
+    padding:10px 0;
+    border-top:1px solid #FFF;
+    border-bottom:1px solid $borderColor;
+    @include transition-property(all);
+    @include transition-duration(0.3s);
+    @include transition-timing-function(ease-in);
+    &:hover{
+      background-color:$bgColorTint;
+    }
+    &:first-child{
+      border-top:none;
+    }
+    &:last-child{
+      border-bottom:none;
+      @include border-bottom-radius($radius);
+    }
+  }
+}
+
+.prayBox{
+  /*variables*/
+  $textColor:#FFF;
+  $paddingSize:20px;
+  $borderColor:#6B1515;
+  
+  width:$sideWidth;
+  color:$textColor;
+  padding:$paddingSize;
+  background:url('../img/bg.png');
+  @extend .roundBox;
+  border-color:$borderColor;
+  margin-bottom:$paddingSize;
+  hr{
+    border:none;
+    background-color:$borderColor;
+    border-bottom:1px solid #EB2E39;
+    border-top:2px solid $borderColor;
+    margin-bottom:$paddingSize*0.5;
+  }
+  img{
+    padding-top:$paddingSize;
+    
+  }
+}
+
+
+
+
+//structure
+* {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body{
+	background:url('../img/bg.png');
+}
+
+.wrapNav{
+	width:$wrapWidth;
+	margin:0 auto;
+}
+
+.whiteSection{
+	background:url('../img/tile_white.png') repeat-x;
+	background-color:#FFF;
+}
+
+#wrap{
+	@extend .wrapNav;
+	padding:20px;
+	@include pie-clearfix;
+}
+
+#logo{
+	position:relative;
+	left:50%;
+	margin-left:-130px;
+	padding:20px 0 10px 0;
+}
+
+#nav{
+	padding-bottom:50px;
+	.selected{
+		a{
+			@extend .navHover;
+		}
+	}
+	ul{
+		text-align:center;
+		padding:20px;
+	}
+	li{
+		display:inline;
+	}
+	&:after{
+		content:"";
+		position:absolute;
+		left:50%;
+		margin-left:-285px;
+		width:570px;
+		height:48px;
+		background:url('../img/shadow.png') no-repeat;
+	}
+}
+
+#sideContainer{
+	float:left;
+}
+
+#mainContent{
+	width:570px;
+	float:right;
+
+}
+#footer{
+  clear:both;
+  padding:20px;
+}

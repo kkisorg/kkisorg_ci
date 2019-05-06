@@ -1,0 +1,462 @@
+@import url(http://fonts.googleapis.com/css?family=Oswald:700,300);
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/* line 17, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+  text-decoration:none;
+}
+
+a:hover { text-decoration:none }
+
+/* line 22, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+html {
+  line-height: 1;
+}
+
+/* line 24, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 26, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 28, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+/* line 30, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q, blockquote {
+  quotes: none;
+}
+/* line 103, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+/* line 32, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+a img {
+  border: none;
+}
+
+/* line 116, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/reset/_utilities.scss */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block;
+}
+
+/* line 24, ../sass/screen.scss */
+.text-content h2 {
+  font-family: 'Oswald',sans-serif;
+  font-size: 48px;
+  color: #b82525;
+  margin: 0.2em 0px;
+}
+/* line 29, ../sass/screen.scss */
+.text-content h2:first-child {
+  margin-top: none;
+}
+/* line 33, ../sass/screen.scss */
+.text-content h3 {
+  font-family: 'Oswald',sans-serif;
+  font-size: 36px;
+  font-weight: 300;
+  color: #9f9f9f;
+  margin: 0.2em 0px;
+}
+/* line 41, ../sass/screen.scss */
+.text-content p, .text-content li {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #404040;
+  line-height: 22.75px;
+}
+/* line 49, ../sass/screen.scss */
+.text-content img {
+  float: left;
+  padding-right: 20px;
+}
+
+/* line 55, ../sass/screen.scss */
+.text-boxSide {
+  font-family: Arial,Helvetica, sans-serif;
+  text-align: center;
+  color: #404040;
+}
+/* line 60, ../sass/screen.scss */
+.text-boxSide h2 {
+  font-family: 'Oswald',sans-serif;
+  font-size: 21px;
+}
+/* line 65, ../sass/screen.scss */
+.text-boxSide h3 {
+  font-family: 'Oswald',sans-serif;
+  font-size: 16px;
+}
+/* line 69, ../sass/screen.scss */
+.text-boxSide a {
+  display: block;
+  text-decoration: none;
+  color: #404040;
+}
+
+/* line 77, ../sass/screen.scss */
+.text-nav {
+  color: white;
+}
+/* line 81, ../sass/screen.scss */
+.text-nav a {
+  color: white;
+  font-family: 'Oswald',sans-serif;
+  font-size: 14px;
+  text-decoration: none;
+  margin: 0 0.2em;
+  padding: 4px 10px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+
+/* line 100, ../sass/screen.scss */
+.text-footer p, .text-footer li {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  color: #404040;
+  line-height: 22.75px;
+}
+
+/* line 110, ../sass/screen.scss */
+.clear {
+  clear: both;
+}
+
+/* line 113, ../sass/screen.scss */
+.navHover, .text-nav a:hover, #nav .selected a {
+  background-color: #FFF;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  color: #B82525;
+}
+
+/* line 119, ../sass/screen.scss */
+.roundBox, .boxSide, .boxSide h2, .prayBox {
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  border: 1px solid #cbc9cf;
+}
+
+/* line 123, ../sass/screen.scss */
+.debossFx, .text-content, .text-boxSide h2, .text-boxSide a {
+  text-shadow: white 0 1px 0;
+}
+
+/* line 127, ../sass/screen.scss */
+.boxSide {
+  /*variables*/
+  width: 320px;
+  background-color: #eeedeb;
+}
+/* line 136, ../sass/screen.scss */
+.boxSide h2 {
+  padding: 10px 0;
+  border-top: 2px solid #FFF;
+  border-bottom: 1px solid #cbc9cf;
+  border-left: none;
+  border-right: none;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #ebeae8), color-stop(100%, #dddcda));
+  background-image: -webkit-linear-gradient(#ebeae8, #dddcda);
+  background-image: -moz-linear-gradient(#ebeae8, #dddcda);
+  background-image: -o-linear-gradient(#ebeae8, #dddcda);
+  background-image: linear-gradient(#ebeae8, #dddcda);
+}
+/* line 146, ../sass/screen.scss */
+.boxSide li {
+  padding: 10px 0;
+  border-top: 1px solid #FFF;
+  border-bottom: 1px solid #cbc9cf;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  -o-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-in;
+  -moz-transition-timing-function: ease-in;
+  -o-transition-timing-function: ease-in;
+  transition-timing-function: ease-in;
+}
+/* line 153, ../sass/screen.scss */
+.boxSide li:hover {
+  background-color: #f6f6f5;
+}
+/* line 156, ../sass/screen.scss */
+.boxSide li:first-child {
+  border-top: none;
+}
+/* line 159, ../sass/screen.scss */
+.boxSide li:last-child {
+  border-bottom: none;
+  -moz-border-radius-bottomleft: 4px;
+  -webkit-border-bottom-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+/* line 166, ../sass/screen.scss */
+.prayBox {
+  /*variables*/
+  width: 320px;
+  color: white;
+  padding: 20px;
+  background: url("/gui/images/bg.png");
+  border-color: #6b1515;
+  margin-bottom: 20px;
+}
+/* line 179, ../sass/screen.scss */
+.prayBox hr {
+  border: none;
+  background-color: #6b1515;
+  border-bottom: 1px solid #EB2E39;
+  border-top: 2px solid #6b1515;
+  margin-bottom: 10px;
+}
+/* line 186, ../sass/screen.scss */
+.prayBox img {
+  padding-top: 20px;
+}
+
+/* line 196, ../sass/screen.scss */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 202, ../sass/screen.scss */
+body {
+  background: url("/gui/images/bg.png");
+}
+
+/* line 206, ../sass/screen.scss */
+.wrapNav, #wrap {
+  width: 960px;
+  margin: 0 auto;
+}
+
+/* line 211, ../sass/screen.scss */
+.whiteSection {
+  background: url("/gui/images/tile_white.png") repeat-x;
+  background-color: #FFF;
+}
+
+/* line 216, ../sass/screen.scss */
+#wrap {
+  padding: 20px;
+  *zoom: 1;
+}
+/* line 38, ../../../../../../Program Files (x86)/Scout/vendor/gems/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/general/_clearfix.scss */
+#wrap:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* line 222, ../sass/screen.scss */
+#logo {
+  position: relative;
+  left: 50%;
+  margin-left: -130px;
+  padding: 20px 0 10px 0;
+}
+
+/* line 229, ../sass/screen.scss */
+#nav {
+  padding-bottom: 50px;
+}
+/* line 236, ../sass/screen.scss */
+#nav ul {
+  text-align: center;
+  padding: 20px;
+}
+/* line 240, ../sass/screen.scss */
+#nav li {
+  display: inline;
+}
+/* line 243, ../sass/screen.scss */
+#nav:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  margin-left: -285px;
+  width: 570px;
+  height: 48px;
+  background: url("/gui/images/shadow.png") no-repeat;
+}
+
+/* line 254, ../sass/screen.scss */
+#sideContainer {
+  float: left;
+}
+
+/* line 258, ../sass/screen.scss */
+#mainContent {
+  width: 570px;
+  float: right;
+}
+
+/* line 263, ../sass/screen.scss */
+#footer {
+  clear: both;
+  padding: 20px;
+}
+
+
+//added by ch
+a:link    {
+  /* Applies to all unvisited links */
+  text-decoration:  none;
+  } 
+a:visited {
+  /* Applies to all visited links */
+  text-decoration:  none;
+  } 
+a:hover   {
+  /* Applies to links under the pointer */
+  text-decoration:  none;
+  } 
+a:active  {
+  /* Applies to activated links */
+  text-decoration:  none;
+  } 
+  
+.title{
+    font-family: 'Oswald',sans-serif;
+  font-size: 24px;
+  color: #b82525;
+  margin: 0.2em 0px;
+}
+
+.sub_title{
+  font-family: 'Oswald',sans-serif;
+  font-size: 20px;
+  color: #000;
+  margin: 0.2em 0px;
+  text-decoration:none;
+}
+
+.p_content{
+    font-size:13px;
+}
+
+.cg_big_container{
+    width:100%;
+    height:70px;
+    padding:5px;
+}
+
+.cg_small_container{
+    float:left;
+    width:110px;
+    list-style-type:square;
+}
+
+.min_big_container{
+    width:100%;
+    height:70px;
+    padding:5px;
+}
+
+.min_small_container{
+    float:left;
+    width:170px;
+    list-style-type:square;
+}
+
+.container_content{
+    padding:15px 15px 15px 0;
+    list-style-type:square;
+    border-bottom: 1px solid;
+}
+
+.thumb_event{
+    float:left;
+    width: 115px;
+    padding:15px 15px 0px 0;
+}
+
+.container_content_event{
+    float:left;
+    padding:15px 15px 0px 0;
+    list-style-type:square;
+}
+
+.prayer{
+    background-color:#85362F;
+    color:#FFF;
+    padding:5px;
+    text-align:center;
+    font-size:1.2em;
+    -moz-border-radius: 5px;
+    border-radius: 15px;
+    border: solid 2px #F5DECE;
+    margin-bottom:10px;
+    cursor: pointer;
+}
+
+.ministries{
+    float:left;
+    padding: 15px;
+    border: #B3B3B3 dashed 2px;
+    width:350px;
+    text-align: center;
+}

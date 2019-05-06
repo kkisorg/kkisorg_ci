@@ -1,0 +1,129 @@
+/*
+MooDataTable CSS
+Unless specified most of the properties can be changed to achieve a custom look...
+*/
+div.moo-table {
+	font-family: Arial,Helvetica,sans-serif;
+	font-size: 13px;
+	border: 1px solid #c3ab89;
+	color: #fff;
+	line-height:22px;
+}
+
+div.moo-table table {
+	width: 100%; !important
+	padding: 3px 18px 3px 10px;
+	margin: 0;
+	border-spacing: 0;
+	text-align: left;
+	padding: 0;
+	border-collapse: collapse;
+	color: #000;
+	border-spacing:0; 
+}
+
+div.moo-table table thead th {
+	background: #fffbff;
+	font-weight: bold;
+	padding: 1px 1px 1px 1px;
+	color: #7e0006;
+	cursor: pointer;
+	line-height: 1.8em;
+	text-decoration: underline;
+}
+
+div.moo-table table thead th.moo-active-column {
+	font-weight: bold;
+	text-decoration: underline;
+	padding-left: 11px;
+	color: #000;
+}
+
+div.moo-table table thead th.moo-active-asc {
+	background: #fffbff url(../images/asc.gif) 2px center no-repeat;
+	color: #7e0006;
+}
+
+div.moo-table table thead th.moo-active-desc {
+	background: #fffbff url(../images/desc.gif) 2px center no-repeat;
+	color: #7e0006;
+}
+
+div.moo-table table tbody tr {
+	background: #fff;
+	color: #000;
+	
+}
+
+div.moo-table table tbody tr.moo-table-even {
+	background: #fef;
+	color: #000;
+}
+
+div.moo-table table tbody tr:hover {
+	background: #efe;
+	color: #000;
+}
+
+div.moo-table table tbody td {
+	padding: 3px 3px 3px 5px;
+	font-size: 0.9em;
+	border-bottom: 1px solid #bbb;
+	color: #000;
+	background: #fef;
+}
+
+div.moo-table table tbody tr.moo-table-last td {
+	border: none;
+	color: #000;
+	background: #fef;
+}
+
+div.moo-table tfoot {
+	background: #fef;
+	font-size: 0.8em;
+	padding: 3px;
+	color: #000;
+	background: #fff;
+}
+
+div.moo-table tfoot a {
+	color: #eee;
+	background: #fff;
+}
+
+div.moo-table tfoot span.moo-foot-left {
+	float: left;
+	padding-left: 8px;
+	background: #fff;
+	color: #850003;
+}
+
+div.moo-table tfoot span.moo-foot-right {
+	float: right;
+	padding-right: 8px;
+	background: #fff;
+}
+
+div.moo-table tfoot span.moo-foot-right a {
+	margin-right: 3px;
+	text-decoration: none;
+	color: #000;
+	background: #fff;
+}
+
+div.moo-table tfoot span.moo-foot-right a:hover {
+	text-decoration: underline;
+	background: #fff;
+}
+
+div.moo-table tfoot span.moo-foot-right span {
+	margin-right: 3px;
+	background: #fff;
+}
+
+div.moo-table tfoot span.moo-foot-right span.moo-active-page {
+	font-weight: bold;
+	text-decoration: underline;
+	background: #fff;
+}

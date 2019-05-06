@@ -1,0 +1,6 @@
+admin/.htaccess
+log/log-*.php
+cache/*
+gui/userfiles
+webmail/.htaccess
+error_log
