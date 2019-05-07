@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Header_news_model extends Model
+class Header_news_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class Header_news_model extends Model
 	**/		
 	function Header_news_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

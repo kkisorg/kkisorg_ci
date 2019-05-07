@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class User extends Controller 
+class User extends CI_Controller 
 {
 
 	function User()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

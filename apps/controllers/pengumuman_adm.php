@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Pengumuman_adm extends Controller 
+class Pengumuman_adm extends CI_Controller 
 {
 
 	function Pengumuman_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

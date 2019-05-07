@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Laporan_kegiatan_adm extends Controller 
+class Laporan_kegiatan_adm extends CI_Controller 
 {
 
 	function Laporan_kegiatan_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

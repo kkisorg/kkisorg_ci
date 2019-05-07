@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pelayanan_model extends Model
+class Pelayanan_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class Pelayanan_model extends Model
 	**/		
 	function Pelayanan_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

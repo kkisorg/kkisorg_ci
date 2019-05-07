@@ -5,40 +5,40 @@
 |--------------------------------------------------------------------------
 | @Desc    : user controller
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
-class Eventlog extends Controller 
+class Eventlog extends CI_Controller
 {
 
 	function Eventlog()
 	{
-		parent::Controller();	
-		
+		parent::__construct();
+
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//misc
 		$this->load->helper('misc');
-		
+
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - index
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller
@@ -49,16 +49,16 @@ class Eventlog extends Controller
 		//view
 		$this->view();
 	}
-	
+
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -69,19 +69,19 @@ class Eventlog extends Controller
 		//perms
 		$this->etc->check_permission('EVENT.LIST');
 
-		$this->ajx_view(false);		
+		$this->ajx_view(false);
 	}
 
-   
+
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -91,21 +91,21 @@ class Eventlog extends Controller
 	{
 		//perms
 		$this->etc->check_permission('EVENT.LIST');
-		
+
 		//sorting
 		$sortdata   = array(
-				"remarks",   
-				"uri"  ,  
+				"remarks",
+				"uri"  ,
 				"created",
 				"created_by");
 
 		//fmt params
 		$fdata = fmt_ajx_params($sortdata);
-		
+
 		//dmp
 		$dmp   = @var_export($fdata,true);
 		log_message("DEBUG","ajx_view() : params [ $dmp ]");
-		
+
 		//role-list
 		$rdata = $this->event_log->get(array(
 						'order' => $fdata['order'],
@@ -115,23 +115,23 @@ class Eventlog extends Controller
 		$rdata['total'] = $rdata['total']==''?0:$rdata['total'];
 		//('status' => $ok, 'data' => $data , 'total' => $tot );
 		$json_str = $this->fmt_jason_data(
-						$rlist, 
-						$fdata['page'], 
+						$rlist,
+						$fdata['page'],
 						$rdata['total'],
 						$fdata['draw']
 						);
-		
+
 		//fmt view data
 		$vdata['jData_Total']    = @intval($rdata['total']);
 		$vdata['jData_Str']      = $json_str;
 		$vdata['jData_Ajax']     = true;
-		
+
 		//view
 		if(!$v)
 		   $this->load->view('eventlog.view.php',$vdata);
 		else
 		   echo $json_str;
-		
+
 	}
 
 	/**
@@ -139,10 +139,10 @@ class Eventlog extends Controller
 	|      - fmt_jason_data
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - jason-data formatter
@@ -150,7 +150,7 @@ class Eventlog extends Controller
 	**/
 	function fmt_jason_data($pdata=null, $page=1, $total=0, $draw=1)
 	{
-		
+
 		//init jason-data
 		$jres = "{\"draw\": $draw,
 			    \"recordsTotal\" : $total,
@@ -163,18 +163,18 @@ class Eventlog extends Controller
 			list($ip, $uri, $meth, $qry, $ua) = @explode("\n",$vv->uri);
 			//delete
 			$jres .= '     [ ' .
-					'"'. addslashes( $vv->remarks  )  .'",'. 
+					'"'. addslashes( $vv->remarks  )  .'",'.
 					'"'. addslashes( "$ip : $uri" )   .'",'.
 					'"'. addslashes( $vv->created )   .'",'.
-					'"'. addslashes( $vv->created_by) .'" '. 
+					'"'. addslashes( $vv->created_by) .'" '.
 					"],\n";
 		}
-		
+
 		//trim
 		$jres  = substr($jres, 0, strlen($jres)-2);
 		$jres .= "\n]}\n";
-		
-		
+
+
 		//tracing ;-)
 		log_message("DEBUG","fmt_jason_data() : info [ $jres ] ");
 
@@ -187,7 +187,7 @@ class Eventlog extends Controller
 	|      - export
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -198,7 +198,7 @@ class Eventlog extends Controller
 	**/
 	function export()
 	{
-	
+
 		//chk perms
 		$this->etc->check_permission('EVENT.Export');
 
@@ -207,27 +207,27 @@ class Eventlog extends Controller
 
 		//fmt date-params  [array('sdt' => $sdt, 'edt' => $edt, 'disp' => $disp);]
 		$this->load->helper('misc');
-		
+
 		$rdata      = $this->event_log->get();
 
-				
+
 
 		$dmp        = @var_export($rdata['data'], true);
 		log_message("DEBUG","csv-data [ $dmp ]");
 
-	
+
 		//download csv
 		$this->download_csv($rdata['data']);
 
-			 
+
 	}
-	
+
 	/**
 	| @name
 	|      - download_csv
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -238,33 +238,33 @@ class Eventlog extends Controller
 	**/
 	function download_csv($edata=null,$hdrs=null)
 	{
-		
-		
+
+
 		//fmt filename
 		//$hdr = 'Events Log\n';
 		$pre = sprintf("%s-%s", 'Events.Log', date("Ymd"));;
-	
+
 		//load helper
 		$this->load->helper('misc');
 		$csv = u_generate_uuid("$pre-").'.csv';
 		$more= @count($edata);
 		$rec = null;
-	
+
 		for($i=0; $i<$more; $i++)
 		{
 			$jdata   = $edata[$i];
-			
+
 			$dmp     = @var_export($pdata, true);
-			 
+
 			log_message('DEBUG',"download_csv() : dmp# [ $dmp ]");
-			
+
 			$j = 0;
 			foreach($jdata as $k=>$v)
 		  {
          $pdata[$j] = $v;
          $j++;
       }
-      	
+
 			$rec    .= @join(',',array(
 							"\"$pdata[0]\"",
 							"\"$pdata[1]\"",

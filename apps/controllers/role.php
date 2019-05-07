@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Role extends Controller 
+class Role extends CI_Controller 
 {
 
 	function Role()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

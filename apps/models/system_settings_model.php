@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class System_settings_model extends Model
+class System_settings_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class System_settings_model extends Model
 	**/		
 	function System_settings_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

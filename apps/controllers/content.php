@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Content extends Controller 
+class Content extends CI_Controller 
 {
 
 	function Content()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

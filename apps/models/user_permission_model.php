@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_permission_model extends Model
+class User_permission_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class User_permission_model extends Model
 	**/		
 	function User_permission_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

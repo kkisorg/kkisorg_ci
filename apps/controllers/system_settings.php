@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class System_settings extends Controller 
+class System_settings extends CI_Controller 
 {
 
 	function System_settings()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

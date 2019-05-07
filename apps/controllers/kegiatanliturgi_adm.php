@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Kegiatanliturgi_adm extends Controller 
+class Kegiatanliturgi_adm extends CI_Controller 
 {
 
 	function Kegiatanliturgi_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

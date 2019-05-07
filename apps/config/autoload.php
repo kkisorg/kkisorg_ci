@@ -18,22 +18,34 @@
 |
 | These are the things you can load automatically:
 |
-| 1. Libraries
-| 2. Helper files
-| 3. Plugins
+| 1. Packages
+| 2. Libraries
+| 3. Helper files
 | 4. Custom config files
 | 5. Language files
 | 6. Models
 |
 */
-//@error_reporting(E_ALL ^ E_NOTICE);
-@error_reporting(0);
+
+/*
+| -------------------------------------------------------------------
+|  Auto-load Packges
+| -------------------------------------------------------------------
+| Prototype:
+|
+|  $autoload['packages'] = array(APPPATH.'third_party', '/usr/local/shared');
+|
+*/
+
+$autoload['packages'] = array();
+
+
 /*
 | -------------------------------------------------------------------
 |  Auto-load Libraries
 | -------------------------------------------------------------------
 | These are the classes located in the system/libraries folder
-| or in your system/application/libraries folder.
+| or in your application/libraries folder.
 |
 | Prototype:
 |
@@ -51,8 +63,9 @@ $autoload['libraries'] = array(
 				'pagination',
 				'etc',
 				'event_log',
-				'log',								
+				'log',
 				);
+
 
 /*
 | -------------------------------------------------------------------
@@ -63,19 +76,7 @@ $autoload['libraries'] = array(
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'file','form','download','path','number','misc','string','text');
-
-
-/*
-| -------------------------------------------------------------------
-|  Auto-load Plugins
-| -------------------------------------------------------------------
-| Prototype:
-|
-|	$autoload['plugin'] = array('captcha', 'js_calendar');
-*/
-
-$autoload['plugin'] = array();
+$autoload['helper'] = array('array', 'url', 'file','form','download','path','number','misc','string','text');
 
 
 /*
@@ -102,7 +103,7 @@ $autoload['config'] = array('system_custom_config');
 |
 |	$autoload['language'] = array('lang1', 'lang2');
 |
-| NOTE: Do not include the "_lang" part of your file.  For example 
+| NOTE: Do not include the "_lang" part of your file.  For example
 | "codeigniter_lang.php" would be referenced as array('codeigniter');
 |
 */
@@ -125,4 +126,4 @@ $autoload['model'] = array('Header_news_model','Artikel_model','Renungan_model',
 
 
 /* End of file autoload.php */
-/* Location: ./system/application/config/autoload.php */
+/* Location: ./application/config/autoload.php */

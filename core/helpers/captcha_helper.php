@@ -69,14 +69,14 @@ if ( ! function_exists('create_captcha'))
 		}
 
 		if ( ! is_writable($img_path))
-		{     
+		{
 			return FALSE;
 		}
 
 		if ( ! extension_loaded('gd'))
-		{    
+		{
 			return FALSE;
-		}  
+		}
 
 		// -----------------------------------
 		// Remove old images
@@ -146,9 +146,9 @@ if ( ! function_exists('create_captcha'))
 		//  Assign colors
 		// -----------------------------------
 
-		$bg_color		= imagecolorallocate ($im, 135, 206, 250);
+		$bg_color		= imagecolorallocate ($im, 255, 255, 255);
 		$border_color	= imagecolorallocate ($im, 153, 102, 102);
-		$text_color		= imagecolorallocate ($im,  0, 0, 128);
+		$text_color		= imagecolorallocate ($im, 204, 153, 153);
 		$grid_color		= imagecolorallocate($im, 255, 182, 182);
 		$shadow_color	= imagecolorallocate($im, 255, 240, 240);
 
@@ -164,9 +164,9 @@ if ( ! function_exists('create_captcha'))
 
 		$theta		= 1;
 		$thetac		= 7;
-		$radius		= 36;
-		$circles	= 30;
-		$points		= 42;
+		$radius		= 16;
+		$circles	= 20;
+		$points		= 32;
 
 		for ($i = 0; $i < ($circles * $points) - 1; $i++)
 		{
@@ -185,20 +185,20 @@ if ( ! function_exists('create_captcha'))
 		// -----------------------------------
 		//  Write the text
 		// -----------------------------------
-      
+
 		$use_font = ($font_path != '' AND file_exists($font_path) AND function_exists('imagettftext')) ? TRUE : FALSE;
 
 		if ($use_font == FALSE)
-		{           
-			$font_size = 15;
+		{
+			$font_size = 5;
 			$x = rand(0, $img_width/($length/3));
 			$y = 0;
 		}
 		else
-		{      
-			$font_size	= 20;
+		{
+			$font_size	= 16;
 			$x = rand(0, $img_width/($length/1.5));
-			$y = $font_size+5;
+			$y = $font_size+2;
 		}
 
 		for ($i = 0; $i < strlen($word); $i++)

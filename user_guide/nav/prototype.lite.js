@@ -125,4 +125,3 @@ Object.extend(Element, {
 	}
   }
 });
-

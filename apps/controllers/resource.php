@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Resource extends Controller 
+class Resource extends CI_Controller 
 {
 
 	function Resource()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

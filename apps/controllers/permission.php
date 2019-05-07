@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Permission extends Controller 
+class Permission extends CI_Controller 
 {
 
 	function Permission()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

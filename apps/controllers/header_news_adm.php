@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Header_news_adm extends Controller 
+class Header_news_adm extends CI_Controller 
 {
 
 	function Header_news_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

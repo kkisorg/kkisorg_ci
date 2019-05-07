@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Pelayanan_adm extends Controller 
+class Pelayanan_adm extends CI_Controller 
 {
 
 	function Pelayanan_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

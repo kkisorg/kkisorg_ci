@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Page_model extends Model
+class Page_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class Page_model extends Model
 	**/		
 	function Page_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

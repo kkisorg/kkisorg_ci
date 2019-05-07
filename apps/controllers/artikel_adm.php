@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Artikel_adm extends Controller 
+class Artikel_adm extends CI_Controller 
 {
 
 	function Artikel_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Kegiatan_model extends Model
+class Kegiatan_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class Kegiatan_model extends Model
 	**/		
 	function Kegiatan_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

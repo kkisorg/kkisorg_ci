@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Dombaku_adm extends Controller 
+class Dombaku_adm extends CI_Controller 
 {
 
 	function Dombaku_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

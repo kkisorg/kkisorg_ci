@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Laporan_kegiatan_model extends Model
+class Laporan_kegiatan_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class Laporan_kegiatan_model extends Model
 	**/		
 	function Laporan_kegiatan_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

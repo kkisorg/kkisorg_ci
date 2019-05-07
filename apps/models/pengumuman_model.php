@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pengumuman_model extends Model
+class Pengumuman_model extends CI_Model
 {
 
 	/**
@@ -35,7 +35,7 @@ class Pengumuman_model extends Model
 	**/
 	function Pengumuman_model()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();

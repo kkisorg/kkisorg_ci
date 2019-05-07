@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Bacaanmingguan_adm extends Controller 
+class Bacaanmingguan_adm extends CI_Controller 
 {
 
 	function Bacaanmingguan_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

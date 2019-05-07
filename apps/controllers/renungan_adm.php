@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Renungan_adm extends Controller 
+class Renungan_adm extends CI_Controller 
 {
 
 	function Renungan_adm()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();

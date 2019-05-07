@@ -14,12 +14,12 @@
 | @Modified Date: 
 */
 
-class Cronjob extends Controller 
+class Cronjob extends CI_Controller 
 {
 
 	function Cronjob()
 	{
-		parent::Controller();	
+		parent::__construct();	
 		
 		//loaders here ;-)
 		$this->load->database();
