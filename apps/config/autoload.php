@@ -63,7 +63,6 @@ $autoload['libraries'] = array(
 				'pagination',
 				'etc',
 				'event_log',
-				'log',
 				);
 
 

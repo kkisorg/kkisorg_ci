@@ -5,44 +5,44 @@
 |--------------------------------------------------------------------------
 | @Desc    : user controller
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
-class Permission extends CI_Controller 
+class Permission extends CI_Controller
 {
 
-	function Permission()
+	function __construct()
 	{
-		parent::__construct();	
-		
+		parent::__construct();
+
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//misc
 		$this->load->helper('misc');
-		
+
 		//more
 		$this->load->model('User_resource_model',  'user_resource_model');
 		$this->load->model('User_permission_model','user_permission_model');
 		$this->load->model('User_role_model',      'user_role_model');
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - index
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller
@@ -53,16 +53,16 @@ class Permission extends CI_Controller
 		//view
 		$this->view();
 	}
-	
+
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -72,19 +72,19 @@ class Permission extends CI_Controller
 	{
 		//perms
 		$this->etc->check_permission('PERMISSION.LIST');
-	
-		$this->ajx_view(false);		
+
+		$this->ajx_view(false);
 	}
-  
+
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -94,22 +94,22 @@ class Permission extends CI_Controller
 	{
 		//perms
 		$this->etc->check_permission('PERMISSION.LIST');
-		
+
 		//sorting
 		$sortdata   = array();
 
 		//fmt params
 		$fdata = fmt_ajx_params($sortdata);
-		
+
 		//dmp
 		$dmp   = @var_export($fdata,true);
 		log_message("DEBUG","ajx_view() : params [ $dmp ]");
-		
+
 		//perms-list
 		$rdata = $this->user_resource_model->get( );
 		$rlist = $rdata['data'];
-		
-		
+
+
 		//role-list
 		$rodata = $this->user_role_model->get();
 		$rolist = $rodata['data'];
@@ -120,15 +120,15 @@ class Permission extends CI_Controller
                  \"sTitle\"   : \"Resource\",
                  \"sName\"    : \"resource\",
                  \"sType\"    : \"string\",
-                 \"aTargets\" : [ 0 ],           
-                 \"bSortable\": false,           
+                 \"aTargets\" : [ 0 ],
+                 \"bSortable\": false,
                },\n";
 		//set headers
 		$z=0;
     foreach($rolist as $kk => $vv)
 		{
 			//ignore ;-) root
-			if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $kk ) 
+			if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $kk )
 				continue;
 			$buff1 = '"'. $vv->name.'"';
 			$buff2 = '"'. ucfirst($vv->name).'"';
@@ -137,48 +137,48 @@ class Permission extends CI_Controller
                  \"sTitle\"   : $buff2,
                  \"sName\"    : $buff1,
                  \"sType\"    : \"string\",
-                 \"aTargets\" : [ $z ],           
-                 \"bSortable\": false,           
+                 \"aTargets\" : [ $z ],
+                 \"bSortable\": false,
                },\n";
 		  $z++;
     }
 		$buff = substr($buff, 0, strlen($buff)-2);
-		
+
 		log_message("DEBUG","ajx_view() : HDRS [ $buff ]");
-		
+
 		$rdata['total'] = $rdata['total']==''?0:$rdata['total'];
-		
+
 		$json_str = $this->fmt_jason_data(
-						$rlist, 
-						$fdata['page'], 
+						$rlist,
+						$fdata['page'],
 						$rdata['total'],
 						$rolist,
 						$fdata['draw']
 						);
-		
+
 		//fmt view data
 		$vdata['jData_Total']    = @intval($rdata['total']);
 		$vdata['jData_Str']      = $json_str;
 		$vdata['jData_Headers']  = $buff;
 		$vdata['jData_Ajax']     = true;
-		
+
 		//view
 		if(!$v)
 		   $this->load->view('permission.view.php',$vdata);
 		else
 		   echo $json_str;
-		
+
 	}
-  
+
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -188,22 +188,22 @@ class Permission extends CI_Controller
 	{
 		//perms
 		$this->etc->check_permission('PERMISSION.LIST');
-		
+
 		//sorting
 		$sortdata   = array();
 
 		//fmt params
 		$fdata = fmt_ajx_params($sortdata);
-		
+
 		//dmp
 		$dmp   = @var_export($fdata,true);
 		log_message("DEBUG","ajx_view() : params [ $dmp ]");
-		
+
 		//perms-list
 		$rdata = $this->user_resource_model->get( );
 		$rlist = $rdata['data'];
-		
-		
+
+
 		//role-list
 		$rodata = $this->user_role_model->get();
 		$rolist = $rodata['data'];
@@ -214,38 +214,38 @@ class Permission extends CI_Controller
 		foreach($rolist as $kk => $vv)
 		{
 			//ignore ;-) root
-			if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $kk ) 
+			if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $kk )
 				continue;
 			$buff1 = '"'. $vv->name.'"';
 			$buff2 = '"'. ucfirst($vv->name).'"';
 			$buff .= "{id: $buff1 ,    caption: $buff2,    sortable: false},\n";
 		}
 		$buff = substr($buff, 0, strlen($buff)-2);
-		
+
 		log_message("DEBUG","ajx_view() : HDRS [ $buff ]");
-		
+
 		$rdata['total'] = $rdata['total']==''?0:$rdata['total'];
-		
+
 		$json_str = $this->fmt_jason_data(
-						$rlist, 
-						$fdata['page'], 
+						$rlist,
+						$fdata['page'],
 						$rdata['total'],
 						$rolist,
 						$fdata['draw']
 						);
-		
+
 		//fmt view data
 		$vdata['jData_Total']    = @intval($rdata['total']);
 		$vdata['jData_Str']      = $json_str;
 		$vdata['jData_Headers']  = $buff;
 		$vdata['jData_Ajax']     = true;
-		
+
 		//view
 		if(!$v)
 		   $this->load->view('permission.view.php',$vdata);
 		else
 		   echo $json_str;
-		
+
 	}
 
 	/**
@@ -253,10 +253,10 @@ class Permission extends CI_Controller
 	|      - fmt_jason_data
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - jason-data formatter
@@ -264,14 +264,14 @@ class Permission extends CI_Controller
 	**/
 	function fmt_jason_data($ldata=null, $page=1, $total=0, $rolist=null, $draw=1)
 	{
-	
+
 		//init jason-data
 		$jres = "{\"draw\": $draw,
 			    \"recordsTotal\" : $total,
           \"recordsFiltered\": $total,
 			    \"data\": [
 			   ";
-			   
+
 		//more
 		foreach($ldata as $kk => $vv)
 		{
@@ -279,11 +279,11 @@ class Permission extends CI_Controller
 			foreach($rolist as $KK => $VV)
 			{
 				//ignore ;-) root
-				if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $KK ) 
+				if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $KK )
 					continue;
-				
-				
-				//get the flag 
+
+
+				//get the flag
 				$pmdata = $this->user_permission_model->select_by_pair(array(
 										'role'     => $KK,
 										'resource' => $vv->id,
@@ -294,21 +294,21 @@ class Permission extends CI_Controller
 				$status_str_v  = @implode('-', array($KK, $vv->id));
 				$status_str_box= "<input type='checkbox' name='chkperms[]' value='$status_str_v' $status_str_ck />";//"<input type='checkbox' name='chkperms[]' value='$status_str_v' $status_str_ck />";
 				$status_buff .= '"'. $status_str_box   .   '",';
-				
-				
+
+
 			}
 			$status_buff  = substr($status_buff, 0, strlen($status_buff)-1);
 			//delete
 			$jres .= '     [ ' .
-					'"'. addslashes( $vv->name  )  .'",'. 
+					'"'. addslashes( $vv->name  )  .'",'.
 					$status_buff.
 					"],\n";
 		}
 		//trim
 		$jres  = substr($jres, 0, strlen($jres)-2);
 		$jres .= "\n]}\n";
-		
-		
+
+
 		//tracing ;-)
 		log_message("DEBUG","fmt_jason_data() : info [ $jres ] ");
 
@@ -322,10 +322,10 @@ class Permission extends CI_Controller
 	|      - perm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - process permission settings
@@ -338,7 +338,7 @@ class Permission extends CI_Controller
 
 		//get
 		$perms = $this->input->get_post('chkperms');
-		
+
 		$dmp   = @var_export($perms, true);
 		//params
 		log_message("DEBUG","perm_proc() : settings [ $dmp ]");
@@ -350,7 +350,7 @@ class Permission extends CI_Controller
 		{
 			//truncate ;-)
 			$this->user_permission_model->delete_all( $this->config->item('DEFAULT_ROLE_ROOT_ID') );
-			
+
 			//new ins
 			for($i=0; $i < $mx; $i++)
 			{
@@ -368,20 +368,20 @@ class Permission extends CI_Controller
 				$ok = ($ret) ? ($ok+1) : ($ok);
 			}
 		}
-		
-		
+
+
 		if($ok)
 		{
 			//set status
 			$this->etc->set_success_message($this->config->item('RESOURCE_UPD_OK_MSG'));
 		}
-		
-		
+
+
 		//fwd
 		redirect(site_url("permission/view"));
 		return;
-		
-		
+
+
 	}
 }
 /* End of file welcome.php */

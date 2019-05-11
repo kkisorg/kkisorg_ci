@@ -5,13 +5,13 @@
 |--------------------------------------------------------------------------
 | @Desc    : user model
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -24,37 +24,37 @@ class User_model extends CI_Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function User_model()
+	**/
+	function __construct()
 	{
 		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
 	}
-	
+
 	/**
 	| @name
 	|      - add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function add($pdata=null)
 	{
 		 //fmt-params
@@ -66,35 +66,35 @@ class User_model extends CI_Model
 		$by       = addslashes(trim($pdata['created_by']));
 		$role     = addslashes(trim($pdata['role']));
 		$status   = addslashes(trim($pdata['status']));
-		
+
 		$expiry   = addslashes( trim($pdata['pass_expiry_days']));
-		
+
 		//exec
 		$sql = "
 			 INSERT INTO user (
-			 	name, 
-			 	email, 
-			 	country, 
-			 	mobile, 
-			 	pass, 
+			 	name,
+			 	email,
+			 	country,
+			 	mobile,
+			 	pass,
 			 	role,
 			 	status,
 			 	pass_expiry_days,
 			 	pass_expiry,
-			 	created, 
+			 	created,
 			 	created_by
-			 	) 
+			 	)
 			 VALUES (
-			 	'$name', 
-			 	'$email', 
-			 	'$country', 
-			 	'$mobile', 
-			 	'$pass', 
-			 	'$role', 
+			 	'$name',
+			 	'$email',
+			 	'$country',
+			 	'$mobile',
+			 	'$pass',
+			 	'$role',
 			 	'$status',
 			 	'$expiry',
 			 	DATE_ADD(Now(), INTERVAL $expiry DAY),
-			 	Now(), 
+			 	Now(),
 			 	'$by'
 			 	)
 		       ";
@@ -103,7 +103,7 @@ class User_model extends CI_Model
 		$ok  = $this->db->affected_rows();
 
 		//get ref
-		$ref = $this->db->insert_id();				
+		$ref = $this->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
@@ -119,15 +119,15 @@ class User_model extends CI_Model
 	|      - update
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update($pdata=null)
 	{
 		//fmt-params
@@ -141,26 +141,26 @@ class User_model extends CI_Model
 		$by       = addslashes(trim($pdata['updated_by']));
 		$expiry   = addslashes(trim($pdata['pass_expiry_days']));
 		//exec
-		$sql = "UPDATE user 
-			SET 
-				country   = '$country', 
-				mobile    = '$mobile', 
-				name      = '$name'  , 
-				role      = '$role'  , 
+		$sql = "UPDATE user
+			SET
+				country   = '$country',
+				mobile    = '$mobile',
+				name      = '$name'  ,
+				role      = '$role'  ,
 				status    = '$status',
 				pass_expiry_days = '$expiry',
 			 	pass_expiry      = DATE_ADD(Now(), INTERVAL $expiry DAY),
-				updated          = Now(), 
-				updated_by       = '$by' 
-			WHERE 
-			    id='$id' 
+				updated          = Now(),
+				updated_by       = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -172,15 +172,15 @@ class User_model extends CI_Model
 	|      - delete
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function delete($pdata=null)
 	{
 		//fmt-params
@@ -207,15 +207,15 @@ class User_model extends CI_Model
 	|      - select_by_mail
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_mail($pdata=null)
 	{
 		//fmt-params
@@ -229,11 +229,11 @@ class User_model extends CI_Model
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
 				* ,
 				Now() > pass_expiry AS expired
-			FROM 
-				user 
-			WHERE 
-				email  ='$mail' 
-				$pidwhr 
+			FROM
+				user
+			WHERE
+				email  ='$mail'
+				$pidwhr
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -251,24 +251,24 @@ class User_model extends CI_Model
 		return array('status' => $ok, 'data' => $data  );
 
 	}
- 
+
 	/**
 	| @name
 	|      - select_by_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data= null;
 		$id  = addslashes(trim($pdata['id']));
@@ -277,10 +277,10 @@ class User_model extends CI_Model
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
 				* ,
 				Now() > pass_expiry AS expired
-			FROM 
-				user 
-			WHERE 
-				id='$id' 
+			FROM
+				user
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -305,37 +305,37 @@ class User_model extends CI_Model
 	|      - set_status
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
 	**/
 	function set_status($pdata=null)
 	{
-		
+
 		//fmt-params
 		$id  = addslashes(trim($pdata['id']));
 		$st  = addslashes(trim($pdata['status']));
 		$by  = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE 
-				user 
-			SET 
-				status    ='$st' , 
-				updated   =Now(), 
-				updated_by='$by' 
-			WHERE 
-				id='$id' 
+		$sql = "UPDATE
+				user
+			SET
+				status    ='$st' ,
+				updated   =Now(),
+				updated_by='$by'
+			WHERE
+				id='$id'
 			LIMIT 1";
-			
+
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
-		
+
 		//tracing ;-)
 		log_message("DEBUG","set_status() : info [ $sql : #$ok ] ");
 
@@ -350,15 +350,15 @@ class User_model extends CI_Model
 	|      - set_wrong_pass
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function set_wrong_pass($pdata=null)
 	{
 		//fmt-params
@@ -366,14 +366,14 @@ class User_model extends CI_Model
 		$by  = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE 
-				user 
-			SET 
-				wrong     = wrong+1 , 
-				updated   = Now(), 
-				updated_by= '$by' 
-			WHERE 
-				id='$id' 
+		$sql = "UPDATE
+				user
+			SET
+				wrong     = wrong+1 ,
+				updated   = Now(),
+				updated_by= '$by'
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
@@ -391,15 +391,15 @@ class User_model extends CI_Model
 	|      - rset_wrong_pass
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function rset_wrong_pass($pdata=null)
 	{
 		//fmt-params
@@ -407,14 +407,14 @@ class User_model extends CI_Model
 		$by  = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE 
-				user 
-			SET 
-				wrong     = 0 , 
-				updated   = Now(), 
-				updated_by= '$by' 
-			WHERE 
-				id='$id' 
+		$sql = "UPDATE
+				user
+			SET
+				wrong     = 0 ,
+				updated   = Now(),
+				updated_by= '$by'
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
@@ -433,7 +433,7 @@ class User_model extends CI_Model
 	|      - set_login_ts
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -441,7 +441,7 @@ class User_model extends CI_Model
 	| @description
 	|      - result set + status
 	|
-	**/	
+	**/
 	function set_login_ts($pdata=null)
 	{
 		//fmt-params
@@ -466,7 +466,7 @@ class User_model extends CI_Model
 	|      - reset_login_ts
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -474,7 +474,7 @@ class User_model extends CI_Model
 	| @description
 	|      - result set + status
 	|
-	**/	
+	**/
 	function reset_login_ts($pdata=null)
 	{
 		//fmt-params
@@ -500,7 +500,7 @@ class User_model extends CI_Model
 	|      - set_password
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -508,23 +508,23 @@ class User_model extends CI_Model
 	| @description
 	|      - result set + status
 	|
-	**/	
+	**/
 	function set_password($pdata=null)
 	{
-		
+
 		//fmt-params
 		$id  = addslashes(trim($pdata['id']));
 		$pwd = addslashes(trim($pdata['pass']));//hash it in the controller
 		$by  = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE user 
-			SET 
-				pass      = '$pwd', 
-				updated   = Now(), 
-				updated_by= '$by' 
-			WHERE 
-				id='$id' 
+		$sql = "UPDATE user
+			SET
+				pass      = '$pwd',
+				updated   = Now(),
+				updated_by= '$by'
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
@@ -546,7 +546,7 @@ class User_model extends CI_Model
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -557,20 +557,20 @@ class User_model extends CI_Model
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = addslashes(trim($pdata['order']));
 		$limit    = addslashes(trim($pdata['limit']));
-		  
+
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
-			 FROM user 
-			
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
+			 FROM user
+
 			 WHERE 1=1
-			 
+
 			     $order
 			     $limit
 			 ";
@@ -584,7 +584,7 @@ class User_model extends CI_Model
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$tot = $this->get_found_rows();
 		}
@@ -602,7 +602,7 @@ class User_model extends CI_Model
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -615,7 +615,7 @@ class User_model extends CI_Model
 	{
 		//init
 		$total = 0;
-		$query = " SELECT FOUND_ROWS() as rows";
+		$query = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $query );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -625,7 +625,7 @@ class User_model extends CI_Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 
@@ -636,7 +636,7 @@ class User_model extends CI_Model
 	|      - bfr_usr
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -685,7 +685,7 @@ class User_model extends CI_Model
 
 		return $insert_id; //return the result_id instead
 	}
-    
+
 
 
 	/**
@@ -693,7 +693,7 @@ class User_model extends CI_Model
 	|      - get_bfr_usr
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -734,7 +734,7 @@ class User_model extends CI_Model
 	|      - set_bfr_usr
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -745,7 +745,7 @@ class User_model extends CI_Model
 	**/
 	function set_bfr_usr($id='')
 	{
-	    
+
 	    //fmt-params
 	    $id  = addslashes(trim($id));
 
@@ -754,28 +754,28 @@ class User_model extends CI_Model
 	    $sql = "UPDATE  user_buffer SET status=status+1 , updated=Now() WHERE id='$id' LIMIT 1";
 	    $sth = $this->db->query($sql);
 	    $ok  = $this->db->affected_rows();
-	 
+
 	    log_message("DEBUG","set_bfr_usr() : info [ $sql : #$ok ] ");
-	    
+
 	    //return
 	    return array('status' => $ok);
 
 	}
-	
+
 	/**
 	| @name
 	|      - update_profile
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update_profile($pdata=null)
 	{
 		//fmt-params
@@ -786,15 +786,15 @@ class User_model extends CI_Model
 		$by       = addslashes(trim($pdata['updated_by']));
 		$name     = addslashes(trim($pdata['name']));
 		//exec
-		$sql = "UPDATE user 
-			SET 
-				country   = '$country', 
-				mobile    = '$mobile', 
-				name      = '$name', 
-				updated          = Now(), 
-				updated_by       = '$by' 
-			WHERE 
-			    id='$id' 
+		$sql = "UPDATE user
+			SET
+				country   = '$country',
+				mobile    = '$mobile',
+				name      = '$name',
+				updated          = Now(),
+				updated_by       = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);

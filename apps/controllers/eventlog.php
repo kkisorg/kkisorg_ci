@@ -17,7 +17,7 @@
 class Eventlog extends CI_Controller
 {
 
-	function Eventlog()
+	function __construct()
 	{
 		parent::__construct();
 

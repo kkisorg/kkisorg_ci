@@ -3,14 +3,14 @@
 |--------------------------------------------------------------------------
 | User centralizd functions
 |--------------------------------------------------------------------------
-| @Desc    : 
-| @Date    : 2011-05-24 
-| @Version : 1.0 
+| @Desc    :
+| @Date    : 2011-05-24
+| @Version : 1.0
 | @By      : gabriela.kartika@gmail.com
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+| @Modified By  :
+| @Modified Date:
 */
 class Etc
 {
@@ -21,10 +21,10 @@ class Etc
 	|      - __construct
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default
@@ -32,7 +32,7 @@ class Etc
 	**/
 	function __construct()
 	{
-	
+
 		//init all
 		$this->CI = &get_instance();
 		//$this->CI->load->library('Acl');
@@ -40,7 +40,7 @@ class Etc
 		//load
 		$this->CI->load->helper('misc');
 
-		
+
 		//try to load ;-)
 		$this->CI->load->model('User_model',           'user_model');
 		$this->CI->load->model('User_resource_model',  'user_resource_model');
@@ -48,7 +48,7 @@ class Etc
 	}
 
 
-	 
+
 	/**
 	| @name
 	|      - is_allowed
@@ -68,11 +68,11 @@ class Etc
 		log_message('DEBUG',"is_allowed() : etc-info [ $resource_name ]");
 		//fmt
 		$resource_name = trim($resource_name);
-		
+
 		//bypass all su-root
 		if ( $this->is_admin() ) return TRUE;
 
-		
+
 		//Get resource based on its name
 		$rdata = $this->CI->user_resource_model->select_by_name(array('name'=>$resource_name));
 
@@ -92,27 +92,27 @@ class Etc
 			}
 			return FALSE;
 		}
-		
+
 		//Resource exists so get the resource id
 		$resource    = $rdata['data'];
 		$resource_id = $resource->id;
 		$mdata       = $this->CI->user_model->select_by_id(array('id' => $this->get_id()));
 		$role_id     = $mdata['data']->role;
 		if(! $mdata['status'] or $role_id <= 0)
-		{  
+		{
 			return FALSE;
 		}
 		//return $this->CI->acl->is_allowed($role_id, $resource_id);
 		return true;
 	}
 
-	
+
 	/**
 	| @name
 	|      - is_logged_in
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - true/false
@@ -127,17 +127,17 @@ class Etc
 		return $this->CI->session->userdata('sess_user_logged') == 1;
 	}
 
-	
+
 
 	/**
 	| @name
 	|      - login
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - log user to the system. If username and password are corect then
@@ -148,11 +148,11 @@ class Etc
 	{
 		//get info
 		$udata = $this->CI->user_model->select_by_mail( array( 'mail' => $usr ) );
-		
+
 		$dmp   = @var_export($udata, true);
 		$pass2 = md5($pass);
 		log_message('DEBUG',"login() : info [ $usr : $pass2 : $dmp ]");
-		
+
 		//validate details ;-)
 		if ($udata['status'] > 0 and $udata['data']->pass === $pass2 and strlen($pass) )
 		{
@@ -161,7 +161,7 @@ class Etc
 				u_remember_me_set(u_remember_me_encrypt($udata['data']->id));
 			else
 				$this->dont_remember_me();
-			
+
 			//set data
 			$user_sess_data = array('sess_user_email'	=> $udata['data']->email,
 						'sess_user_id'		=> $udata['data']->id,
@@ -176,17 +176,17 @@ class Etc
 
 			//update ts
 			$this->CI->user_model->set_login_ts( array( 'id' => $udata['data']->id ) );
-			
+
 			//give it back ;-)
 			return array('status'=>TRUE,'pdata' => $udata );
 		}
 		//wrong-pass
 		if ($udata['status'] > 0 )
-			$this->CI->user_model->set_wrong_pass( 
+			$this->CI->user_model->set_wrong_pass(
 					array(	'id'         => $udata['data']->id,
 						'updated_by' => $usr) );
 
-                return array('status'=>false,'pdata' => $udata);  
+                return array('status'=>false,'pdata' => $udata);
 	}
 
 	/**
@@ -194,10 +194,10 @@ class Etc
 	|      - logout
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - system logout
@@ -214,13 +214,13 @@ class Etc
 		$this->CI->user_model->reset_login_ts( array( 'id' => $this->get_id() ) );
 		//fmt
 		$user_sess_data = array(
-			'sess_user_email'	    => null,
-			'sess_user_id'		    => null,
-			'sess_user_name'	    => null,
-			'sess_role_id '	            => null,
-			'sess_parent_id'	    => null,
-			'sess_user_mhash'	    => null,
-			'sess_user_logged'	    => 0,
+			'sess_user_email',
+			'sess_user_id',
+			'sess_user_name',
+			'sess_role_id',
+			'sess_parent_id',
+			'sess_user_mhash',
+			'sess_user_logged'
 			);
 		//reset
 		$this->CI->session->unset_userdata($user_sess_data);
@@ -238,7 +238,7 @@ class Etc
 	|      - msg
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - status msg setter
@@ -248,7 +248,7 @@ class Etc
 	{
 		//fmt
 		$msg = trim($msg);
-		
+
 		//log-event ;-)
 		$this->CI->event_log->dump($msg);
 
@@ -256,7 +256,7 @@ class Etc
 		//$msg = $this->CI->session->flashdata('error_msg').$msg;
 		$this->CI->session->set_flashdata('error_msg', $msg);
 	}
-    
+
 
 	/**
 	| @name
@@ -266,7 +266,7 @@ class Etc
 	|      - msg
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - status msg setter
@@ -276,7 +276,7 @@ class Etc
 	{
 		//fmt
 		$msg = trim($msg);
-		
+
 		//log-event ;-)
 		$this->CI->event_log->dump($msg);
 
@@ -292,7 +292,7 @@ class Etc
 	|      - lang
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - set lang
@@ -303,7 +303,7 @@ class Etc
 		//fmt
 		$lang = trim($language);
 		if($lang == "") $lang = DEFAULT_LANGUAGE;
-		
+
 		//set it
 		$this->CI->session->set_userdata('sess_language', $lang);
 	}
@@ -356,10 +356,10 @@ class Etc
 	|      - get_email
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - get current email
@@ -377,10 +377,10 @@ class Etc
 	|      - get_created_by
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - get id in string
@@ -391,16 +391,16 @@ class Etc
 		//give it back
 		return $this->get_id();
 	}
-	
+
 	/**
 	| @name
 	|      - get_mhash
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - get id in string
@@ -417,10 +417,10 @@ class Etc
 	|      - get_updated_by
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - get id in string
@@ -437,7 +437,7 @@ class Etc
 	|      - get_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - id
@@ -451,7 +451,7 @@ class Etc
 		//give it back
 		return  @intval($this->CI->session->userdata('sess_user_id'));
 	}
-	
+
 
 
 	/**
@@ -459,7 +459,7 @@ class Etc
 	|      - get_role_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - role-id
@@ -480,7 +480,7 @@ class Etc
 	|      - check_permission
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - true/false
@@ -495,10 +495,10 @@ class Etc
 	{
 		if ($this->is_allowed($resource_name))
 		{
-		  
+
 			return TRUE;
 		}
-		
+
 		//access-denied
 		$this->CI->session->set_userdata('sess_url_denied', uri_string());
 		redirect(DEFAULT_DENIED_PAGE);
@@ -510,10 +510,10 @@ class Etc
 	|      - load_lang
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - lang file loader
@@ -529,10 +529,10 @@ class Etc
 	|      - is_admin
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - chk if admin user
@@ -543,20 +543,20 @@ class Etc
 		//give it back
 		return ($this->get_role_id() == DEFAULT_ROLE_ROOT_ID || $this->get_id() == DEFAULT_ADMIN_ID);
 	}
-	
+
 
 	/**
 	| @name
 	|      - get_name
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
 	**/
 	function get_name()
@@ -564,39 +564,39 @@ class Etc
 		//give it back ;-)
 		return $this->CI->session->userdata('sess_user_name');
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - dont_remember_me
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
 	**/
 	function dont_remember_me()
 	{
 		u_remember_me_unset();//delete cookie ;=)
 	}
-	
+
 	/**
 	| @name
 	|      - pls_remember_me
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
 	**/
 	function pls_remember_me()
@@ -608,7 +608,7 @@ class Etc
 		{
 		        //decrypt it ;-)
 		        $email = u_remember_me_decrypt($cook);
-		       
+
 		        //get info
 			$udata = $this->CI->user_model->select_by_mail( array( 'mail' => $email ) );
 
@@ -639,7 +639,7 @@ class Etc
 	|      - get_menu
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - id
@@ -653,26 +653,26 @@ class Etc
 		//give it back
 		$this->CI->load->model('Menu_model', 'menu_model');
 		$this->CI->load->model('Sub_menu_model', 'sub_menu_model');
-	
+
 	  $menu_list = $this->CI->menu_model->get_menu();
-	  
+
 		//print_r($menu_list['data']);
 	}
-	
-	
-	
+
+
+
 	function get_sys_settings()
 	{
     $this->CI->load->model('System_settings_model', 'system_settings_model');
-  
+
     //get info
 		$vdata = $this->CI->system_settings_model->select_sys_settings();
-		
+
 		return $vdata;
-		
+
   }
 
 
-	
+
 }
 ?>

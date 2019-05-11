@@ -17,7 +17,7 @@
 class Home extends CI_Controller
 {
 
-	function Home()
+	function __construct()
 	{
 		parent::__construct();
 

@@ -5,13 +5,13 @@
 |--------------------------------------------------------------------------
 | @Desc    : System_settings_model
 | @Date    : 2011-05-10
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : gabriela.kartika@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -24,22 +24,22 @@ class System_settings_model extends CI_Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function System_settings_model()
+	**/
+	function __construct()
 	{
 		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//more
 	}
 
@@ -49,20 +49,20 @@ class System_settings_model extends CI_Model
 	|      - select_sys_settings
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_sys_settings()
 	{
 
 		//exec
-		$sql = "SELECT 
+		$sql = "SELECT
   				sys_v
 			 FROM
 			     sys_settings
@@ -79,9 +79,9 @@ class System_settings_model extends CI_Model
 
 		//tracing ;-)
 		log_message("DEBUG","select_sys_settings() : info [ $sql : #$ok ] ");
-		
+
 		//exec
-		$sql = "SELECT 
+		$sql = "SELECT
   				sys_v
 			 FROM
 			     sys_settings
@@ -98,9 +98,9 @@ class System_settings_model extends CI_Model
 
 		//tracing ;-)
 		log_message("DEBUG","select_sys_settings() : info [ $sql : #$ok ] ");
-		
+
 		//exec
-		$sql = "SELECT 
+		$sql = "SELECT
   				sys_v
 			 FROM
 			     sys_settings
@@ -117,9 +117,9 @@ class System_settings_model extends CI_Model
 
 		//tracing ;-)
 		log_message("DEBUG","select_sys_settings() : info [ $sql : #$ok ] ");
-		
+
 		//exec
-		$sql = "SELECT 
+		$sql = "SELECT
   				sys_v
 			 FROM
 			     sys_settings
@@ -138,29 +138,29 @@ class System_settings_model extends CI_Model
 		log_message("DEBUG","select_sys_settings() : info [ $sql : #$ok ] ");
 
     $data = array('mail'=>$mail_url, 'ym'=>$ym, 'twitter'=>$twitter, 'fb'=>$fb);
-    
+
 		//return
 		return array('status' => $ok, 'data' => $data  );
 
 
 	}
 
-	
-  
+
+
   /**
 	| @name
 	|      - save
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function save($pdata=null)
 	{
 
@@ -170,15 +170,15 @@ class System_settings_model extends CI_Model
 		$twitter      = addslashes(trim($pdata['twitter']));
 		$fb         = addslashes(trim($pdata['fb']));
 
-    
+
 		$sql = "delete from sys_settings where sys_k in ('BTF_MAIL_URL','BTF_YM','BTF_TWITTER','BTF_FB')";
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 
 		//tracing ;-)
 		log_message("DEBUG","delete() : info [ $sql : #$ok #$ref ] ");
-		
-		
+
+
 		//exec
 		$sql = "
 			INSERT INTO sys_settings (
@@ -186,13 +186,13 @@ class System_settings_model extends CI_Model
 				sys_v  ,
 				datein ,
 				timein
-			) 
+			)
 			VALUES (
 				'BTF_MAIL_URL'   ,
 				'$mail_url'  ,
-				curdate() , 
-				curtime() 
-			)		       
+				curdate() ,
+				curtime()
+			)
 			";
 
 		$sth = $this->db->query($sql);
@@ -200,7 +200,7 @@ class System_settings_model extends CI_Model
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
-		
+
 		//exec
 		$sql = "
 			INSERT INTO sys_settings (
@@ -208,13 +208,13 @@ class System_settings_model extends CI_Model
 				sys_v  ,
 				datein ,
 				timein
-			) 
+			)
 			VALUES (
 				'BTF_YM'   ,
 				'$ym'  ,
-				curdate() , 
-				curtime() 
-			)		       
+				curdate() ,
+				curtime()
+			)
 			";
 
 		$sth = $this->db->query($sql);
@@ -222,7 +222,7 @@ class System_settings_model extends CI_Model
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
-		
+
 		//exec
 		$sql = "
 			INSERT INTO sys_settings (
@@ -230,18 +230,18 @@ class System_settings_model extends CI_Model
 				sys_v  ,
 				datein ,
 				timein
-			) 
+			)
 			VALUES (
 				'BTF_TWITTER'   ,
 				'$twitter'  ,
-				curdate() , 
-				curtime() 
-			)		       
+				curdate() ,
+				curtime()
+			)
 			";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
-		
+
 		//exec
 		$sql = "
 			INSERT INTO sys_settings (
@@ -249,13 +249,13 @@ class System_settings_model extends CI_Model
 				sys_v  ,
 				datein ,
 				timein
-			) 
+			)
 			VALUES (
 				'BTF_FB'   ,
 				'$fb'  ,
-				curdate() , 
-				curtime() 
-			)		       
+				curdate() ,
+				curtime()
+			)
 			";
 
 		$sth = $this->db->query($sql);
@@ -263,16 +263,16 @@ class System_settings_model extends CI_Model
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
-		
 
-    
-    
-    
+
+
+
+
     return array('status'=>$ok);
-	}   
+	}
 
-	
-	
+
+
 
 }
 ?>

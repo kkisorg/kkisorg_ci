@@ -5,13 +5,13 @@
 |--------------------------------------------------------------------------
 | @Desc    : resource model
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -24,16 +24,16 @@ class User_resource_model extends CI_Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function User_resource_model()
+	**/
+	function __construct()
 	{
 		parent::__construct();
 
@@ -47,18 +47,18 @@ class User_resource_model extends CI_Model
 	|      - add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function add($pdata=null)
 	{
-		
+
 		//fmt-params
 		$name     = addslashes(trim($pdata['name']));
 		$desc     = addslashes(trim($pdata['desc']));
@@ -68,17 +68,17 @@ class User_resource_model extends CI_Model
 		//exec
 		$sql = "
 			 INSERT INTO user_resources (
-			 	name, 
-			 	description, 
-			 	parentId, 
-			 	created, 
+			 	name,
+			 	description,
+			 	parentId,
+			 	created,
 			 	created_by
-			 	) 
+			 	)
 			 VALUES (
-			 	'$name', 
-			 	'$desc', 
-			 	'$parent', 
-			 	Now(), 
+			 	'$name',
+			 	'$desc',
+			 	'$parent',
+			 	Now(),
 			 	'$by'
 			 	)
 		       ";
@@ -87,7 +87,7 @@ class User_resource_model extends CI_Model
 		$ok  = $this->db->affected_rows();
 
 		//get ref
-		$ref = $this->db->insert_id();				
+		$ref = $this->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
@@ -103,15 +103,15 @@ class User_resource_model extends CI_Model
 	|      - update
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update($pdata=null)
 	{
 		//fmt-params
@@ -121,21 +121,21 @@ class User_resource_model extends CI_Model
 		$by       = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE user_resources 
-			SET 
-				name          = '$name', 
-				description   = '$desc', 
-				updated       = Now(), 
-				updated_by    = '$by' 
-			WHERE 
-			    id='$id' 
+		$sql = "UPDATE user_resources
+			SET
+				name          = '$name',
+				description   = '$desc',
+				updated       = Now(),
+				updated_by    = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -147,15 +147,15 @@ class User_resource_model extends CI_Model
 	|      - delete
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function delete($pdata=null)
 	{
 		//fmt-params
@@ -182,15 +182,15 @@ class User_resource_model extends CI_Model
 	|      - select_by_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata=null)
 	{
 		//fmt-params
@@ -199,11 +199,11 @@ class User_resource_model extends CI_Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				user_resources 
-			WHERE 
-				id='$id' 
+				*
+			FROM
+				user_resources
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -223,7 +223,7 @@ class User_resource_model extends CI_Model
 
 	}
 
-	   
+
 
 
 
@@ -232,7 +232,7 @@ class User_resource_model extends CI_Model
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -243,20 +243,20 @@ class User_resource_model extends CI_Model
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = addslashes(trim($pdata['order']));
 		$limit    = addslashes(trim($pdata['limit']));
 
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
-			 FROM user_resources 
-			
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
+			 FROM user_resources
+
 			 WHERE 1=1
-			 
+
 			     $order
 			     $limit
 			 ";
@@ -270,7 +270,7 @@ class User_resource_model extends CI_Model
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}
@@ -287,15 +287,15 @@ class User_resource_model extends CI_Model
 	|      - select_by_name
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_name($pdata=null)
 	{
 		//fmt-params
@@ -307,12 +307,12 @@ class User_resource_model extends CI_Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
+				*
+			FROM
 				user_resources
-			WHERE 
-				name  ='$name' 
-				$pidwhr 
+			WHERE
+				name  ='$name'
+				$pidwhr
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -336,7 +336,7 @@ class User_resource_model extends CI_Model
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -349,7 +349,7 @@ class User_resource_model extends CI_Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -359,7 +359,7 @@ class User_resource_model extends CI_Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 

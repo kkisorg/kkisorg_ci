@@ -34,7 +34,8 @@
 | the active record class
 */
 $active_group  = "default";
-$active_record = TRUE;
+// $active_record = TRUE;
+$query_builder = TRUE;
 
 
 
@@ -49,11 +50,12 @@ $active_record = TRUE;
 if(1 == SERVER_USED )
 {
 	//local
+    $db['default']['dsn'] = 'mysql:host=127.0.0.1;dbname=kkisorg_kkisorg_ci';
     $db['default']['hostname'] = "localhost";
 	$db['default']['username'] = "root";
 	$db['default']['password'] = "";
 	$db['default']['database'] = "kkisorg_kkisorg_ci";
-	$db['default']['dbdriver'] = "mysql";
+	$db['default']['dbdriver'] = "pdo";
 	$db['default']['dbprefix'] = "";
 	$db['default']['pconnect'] = FALSE;
 	$db['default']['db_debug'] = FALSE;
@@ -62,16 +64,17 @@ if(1 == SERVER_USED )
 	$db['default']['char_set'] = "utf8";
 	$db['default']['dbcollat'] = "utf8_general_ci";
 
-	define('CSV_UPLOAD_DIR',   './csv/');
+	// define('CSV_UPLOAD_DIR',   './csv/');
 }
 else
 {
 	//production
+    $db['default']['dsn'] = 'mysql:host=127.0.0.1;dbname=kkisorg_kkisorg_ci';
 	$db['default']['hostname'] = "localhost";
 	$db['default']['username'] = "root";
 	$db['default']['password'] = "";
 	$db['default']['database'] = "kkisorg_kkisorg_ci";
-	$db['default']['dbdriver'] = "mysql";
+	$db['default']['dbdriver'] = "pdo";
 	$db['default']['dbprefix'] = "";
 	$db['default']['pconnect'] = FALSE;
 	$db['default']['db_debug'] = FALSE;
@@ -80,7 +83,7 @@ else
 	$db['default']['char_set'] = "utf8";
 	$db['default']['dbcollat'] = "utf8_general_ci";
 
-	define('CSV_UPLOAD_DIR',   './csv/');
+	// define('CSV_UPLOAD_DIR',   './csv/');
 
 }
 

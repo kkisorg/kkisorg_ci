@@ -33,7 +33,7 @@ class Pengumuman_model extends CI_Model
 	|      -
 	|
 	**/
-	function Pengumuman_model()
+	function __construct()
 	{
 		parent::__construct();
 
@@ -323,7 +323,7 @@ class Pengumuman_model extends CI_Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
