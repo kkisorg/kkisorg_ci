@@ -4,7 +4,7 @@
     <section id="blog" class="container">
         <div class="center">
             <h2>Contact Us</h2>
-            
+
         </div>
 
         <div class="blog">
@@ -20,15 +20,15 @@
                   <form action="<?=site_url('/content/kontak_process');?>" class="form-horizontal" method="post" role="form">
                   <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="<?php echo set_value('name', $name);?>">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name" value="<?php echo set_value('name', isset($name) ? $name : null);?>">
                   </div>
                   <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" value="<?php echo set_value('email', $email);?>">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" value="<?php echo set_value('email', isset($email) ? $email : null);?>">
                   </div>
                   <div class="form-group">
                     <label for="mobile">Mobile</label>
-                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile" value="<?php echo set_value('mobile', $mobile);?>">
+                    <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Enter Mobile" value="<?php echo set_value('mobile', isset($mobile) ? $mobile : null);?>">
                   </div>
                   <div class="form-group">
                     <label for="type">To</label>
@@ -43,7 +43,7 @@
                   </div>
                   <div class="form-group">
                     <label for="message">Submit the word you see below: (case sensitive)</label>
-                  <? 
+                  <?
                     echo '<br />'.$img_src.'<br /><br />';
                     echo '<input type="text" name="captcha" value="" class="form-control" id="captcha" placeholder="Enter word" />';
                   ?>

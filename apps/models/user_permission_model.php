@@ -415,8 +415,8 @@ class User_permission_model extends CI_Model
 
 		//fmt-params
 		$data     = array();
-		$order    = trim($pdata['order']);
-		$limit    = trim($pdata['limit'] );
+        $order    = isset($pdata['order']) ? trim($pdata['order']) : null;
+		$limit    = isset($pdata['limit']) ? trim($pdata['limit']) : null;
 
 		//exec
 		$sql = " SELECT

@@ -255,14 +255,9 @@ class Renungan_model extends CI_Model
 
 		//fmt-params
 		$data     = array();
-		$order    = trim($pdata['order']);
-		$limit    = trim($pdata['limit'] );
-		$where    = trim($pdata['where'] );
-
-        if($order=='')
-        {
-            $order = ' ORDER BY renungan_id desc ';
-        }
+        $order    = isset($pdata['order']) ? trim($pdata['order']) : ' ORDER BY renungan_id desc ';
+		$limit    = isset($pdata['limit']) ? trim($pdata['limit']) : null;
+		$where    = isset($pdata['where']) ? trim($pdata['where']) : null;
 
 		//exec
 		$sql = " SELECT

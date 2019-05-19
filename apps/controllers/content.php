@@ -70,6 +70,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -131,6 +132,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -192,6 +194,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -253,6 +256,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -314,6 +318,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -375,6 +380,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -436,6 +442,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -593,6 +600,7 @@ class Content extends CI_Controller
 
         //-------------------
 
+        $list = '';
         foreach($res['data'] as $row){
 
         $seq      = array('content',
@@ -824,7 +832,7 @@ class Content extends CI_Controller
             redirect('home');
         }
 
-      $vdata['thumbImg'] = $img;
+      $vdata['thumbImg'] = isset($img) ? $img : null;
 	    $vdata['title'] = $title;
 	    $vdata['content'] = $content;
 	    $vdata['type'] = $type;
@@ -910,7 +918,7 @@ class Content extends CI_Controller
                                                       ));
 
 
-	    $vdata['list'] = $res['data']->page_v;
+	    $vdata['list'] = isset($res['data']->page_v) ? $res['data']->page_v : null;
 	    $vdata['page_title'] = 'Kontak';
 	    $vdata['page_title1'] = 'Kontak';
 	    $vdata['keyadd'] = base64_encode($ip_add);

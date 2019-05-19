@@ -246,9 +246,9 @@ class User_resource_model extends CI_Model
 
 		//fmt-params
 		$data     = array();
-		$order    = addslashes(trim($pdata['order']));
-		$limit    = addslashes(trim($pdata['limit']));
-
+        $order    = isset($pdata['order']) ? addslashes(trim($pdata['order'])) : null;
+		$limit    = isset($pdata['limit']) ? addslashes(trim($pdata['limit'])) : null;
+        
 		//exec
 		$sql = " SELECT
 				SQL_CALC_FOUND_ROWS
