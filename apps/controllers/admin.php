@@ -1,12 +1,12 @@
 <?php
 
-class Admin extends Controller {
+class Admin extends CI_Controller {
 
-	function Admin()
+	function __construct()
 	{
-		parent::Controller();	
+		parent::__construct();
 	}
-	
+
 	function index()
 	{
 		$this->load->view('welcome_message');

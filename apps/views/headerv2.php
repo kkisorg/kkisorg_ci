@@ -6,13 +6,13 @@
     <meta name="description" content="<?=($content=='')?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>">
     <meta name="author" content="">
     <meta property="og:image" content="<?=($thumbImg=='')?FILEPATH_UI.'images/logo.png':$thumbImg;?>">
-    <meta property="og:title" content="<?=($title=='')?'Home - KKIS.org':$title.' - KKIS.org';?>"/>  
-    <meta property="og:description" content="<?=($content=='')?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>"/> 
+    <meta property="og:title" content="<?=($title=='')?'Home - KKIS.org':$title.' - KKIS.org';?>"/>
+    <meta property="og:description" content="<?=($content=='')?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>"/>
 	<meta http-equiv="Cache-Control" content="no-cache" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
     <title><?=($title=='')?'Home | KKIS':$title;?></title>
-	
+
 	<!-- core CSS -->
     <link href="<?=FILEPATH_UI;?>css/bootstrap.css" rel="stylesheet">
     <link href="<?=FILEPATH_UI;?>css/font-awesome.min.css" rel="stylesheet">
@@ -23,13 +23,13 @@
     <!--[if lt IE 9]>
     <script src="<?=FILEPATH_UI;?>js/html5shiv.js"></script>
     <script src="<?=FILEPATH_UI;?>js/respond.min.js"></script>
-    <![endif]-->       
+    <![endif]-->
     <link rel="shortcut icon" href="<?=FILEPATH_UI;?>images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?=FILEPATH_UI;?>images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?=FILEPATH_UI;?>images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?=FILEPATH_UI;?>images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="<?=FILEPATH_UI;?>images/ico/apple-touch-icon-57-precomposed.png">
-    
+
 </head><!--/head-->
 
 <body class="homepage">
@@ -47,11 +47,11 @@
                     </button>
                     <a class="navbar-brand" href="<?=site_url()?>"><img src="<?=FILEPATH_UI;?>images/logo.png" alt="logo" width="100px"></a>
                 </div>
-				
+
                 <div class="collapse navbar-collapse navbar-right">
                     <ul class="nav navbar-nav">
                         <li class=""><a href="<?=site_url()?>">Home</a></li>
-                        <li class="dropdown">    
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pelayanan</a>
                             <ul class="dropdown-menu">
                             <?
@@ -62,8 +62,8 @@
                                                      ));
                                     $m_list = $mdata['data'];
                                     ?>
-                                    <? foreach($m_list as $data){ 
-                                        $seq      = array('content', 
+                                    <? foreach($m_list as $data){
+                                        $seq      = array('content',
                                               					  'content_details',
                                               					  'pelayanan',
                                               					  @rawurlencode("$data->pelayanan_id"),
@@ -71,10 +71,10 @@
                                               					  );
                 					  ?>
                                 <li><a href="<?=site_url($seq)?>"><?=string_line_cont($data->pelayanan_title,29);?></a></li>
-                                <? } ?> 
+                                <? } ?>
                             </ul>
                         </li>
-                        <li class="dropdown">    
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kegiatan Rohani </a>
                             <ul class="dropdown-menu">
                             <?
@@ -84,8 +84,8 @@
                                                            ));
                                           $m_list = $mdata['data'];
                                           ?>
-                                          <? foreach($m_list as $data){ 
-                                              $seq      = array('content', 
+                                          <? foreach($m_list as $data){
+                                              $seq      = array('content',
                       					  'content_details',
                       					  'kegiatan',
                       					  @rawurlencode("$data->kegiatan_id"),
@@ -93,10 +93,10 @@
                       					  );
                 					  ?>
                                 <li><a href="<?=site_url($seq)?>"><?=string_line_cont($data->kegiatan_title,30);?></a></li>
-                                <? } ?> 
+                                <? } ?>
                             </ul>
                         </li>
-                        <li class="dropdown">    
+                        <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Kegiatan Liturgi </a>
                             <ul class="dropdown-menu">
                             <?
@@ -106,19 +106,19 @@
                                                              ));
                                             $m_list = $mdata['data'];
                                             ?>
-                                            <? foreach($m_list as $data){ 
-                                                $seq      = array('content', 
+                                            <? foreach($m_list as $data){
+                                                $seq      = array('content',
                         					  'content_details',
                         					  'kegiatanliturgi',
                         					  @rawurlencode("$data->kegiatan_id"),
                         					  url_title("$data->kegiatan_title"),
                         					  );
-                                    
+
                 					  ?>
                                 <li><a href="<?=site_url($seq)?>"><?=string_line_cont($data->kegiatan_title,28);?></a></li>
-                                <? } ?> 
+                                <? } ?>
                             </ul>
-                        </li> 
+                        </li>
                         <li class="dropdown">
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle">Publikasi & Galeri</a>
                             <ul class="dropdown-menu">
@@ -141,10 +141,10 @@
                         </li>
                         <li>
                             <a href="<?=site_url('content/kontak')?>">Kontak</a>
-                        </li>                    
+                        </li>
                     </ul>
                 </div>
             </div><!--/.container-->
         </nav><!--/nav-->
-		
+
     </header><!--/header-->

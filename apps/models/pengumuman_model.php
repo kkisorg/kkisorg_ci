@@ -16,7 +16,7 @@
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Pengumuman_model extends Model
+class Pengumuman_model extends CI_Model
 {
 
 	/**
@@ -33,9 +33,9 @@ class Pengumuman_model extends Model
 	|      -
 	|
 	**/
-	function Pengumuman_model()
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
@@ -323,7 +323,7 @@ class Pengumuman_model extends Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);

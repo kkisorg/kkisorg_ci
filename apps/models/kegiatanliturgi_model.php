@@ -5,18 +5,18 @@
 |--------------------------------------------------------------------------
 | @Desc    : kegiatan_liturgi model
 | @Date    : 2012-06-16
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : gabriela.kartika@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Kegiatanliturgi_model extends Model
+class Kegiatanliturgi_model extends CI_Model
 {
 
 	/**
@@ -24,22 +24,22 @@ class Kegiatanliturgi_model extends Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
-	|      - 
+	|      -
 	|
-	**/		
-	function Kegiatanliturgi_model()
+	**/
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//more
 	}
 
@@ -49,37 +49,37 @@ class Kegiatanliturgi_model extends Model
 	|      - add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @contentription
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function add($pdata=null)
 	{
 
 		//fmt-params
 		$name         = addslashes(trim($pdata['name']));
-		$content   = addslashes(trim($pdata['content'] ));	
+		$content   = addslashes(trim($pdata['content'] ));
 		$publish      = addslashes(trim($pdata['publish'] ));
 		$by           = addslashes(trim($pdata['created_by']));
-    
+
 		//exec
 		$sql = "
 			 INSERT INTO kegiatan_liturgi (
-			 	kegiatan_title, 
+			 	kegiatan_title,
 			 	kegiatan_content,
 			 	display,
 			 	created_date,
-			 	created_by  
-			 	) 
+			 	created_by
+			 	)
 			 VALUES (
 			 	'$name',
         		'$content',
-			 	'$publish', 
+			 	'$publish',
 			 	now(),
 			 	'$by'
 			 	)
@@ -89,7 +89,7 @@ class Kegiatanliturgi_model extends Model
 		$ok  = $this->db->affected_rows();
 
 		//get ref
-		$ref = $this->db->insert_id();				
+		$ref = $this->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
@@ -105,44 +105,44 @@ class Kegiatanliturgi_model extends Model
 	|      - update
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @contentription
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update($pdata=null)
 	{
 		//fmt-params
 		$id       = addslashes(trim($pdata['id']));
-		
+
     	//fmt-params
 	  	$name         = addslashes(trim($pdata['name']));
-		$content   = addslashes(trim($pdata['content'] ));	
+		$content   = addslashes(trim($pdata['content'] ));
 		$publish      = addslashes(trim($pdata['publish'] ));
 		$by         = addslashes(trim($pdata['updated_by']));
 
-    
+
 		//exec
-		$sql = "UPDATE kegiatan_liturgi 
-				SET 
-				kegiatan_title    = '$name', 
-				kegiatan_content   = '$content', 
+		$sql = "UPDATE kegiatan_liturgi
+				SET
+				kegiatan_title    = '$name',
+				kegiatan_content   = '$content',
 			  	display       = '$publish',
-				modified_date       = Now(), 
-				modified_by    = '$by' 
-			WHERE 
-			    kegiatan_id='$id' 
+				modified_date       = Now(),
+				modified_by    = '$by'
+			WHERE
+			    kegiatan_id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -153,15 +153,15 @@ class Kegiatanliturgi_model extends Model
 	|      - delete
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @contentription
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function delete($pdata=null)
 	{
 		//fmt-params
@@ -169,16 +169,16 @@ class Kegiatanliturgi_model extends Model
 		$by       = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "DELETE FROM kegiatan_liturgi 
-			WHERE 
-			    kegiatan_id='$id' 
+		$sql = "DELETE FROM kegiatan_liturgi
+			WHERE
+			    kegiatan_id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","delete() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -190,29 +190,29 @@ class Kegiatanliturgi_model extends Model
 	|      - select_by_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @contentription
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata=null)
 	{
 		//fmt-params
 		$data= null;
 		$id  = addslashes(trim($pdata['id']));
         $where = $pdata['where'];
-        
+
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				kegiatan_liturgi 
-			WHERE 
-				kegiatan_id='$id' 
+				*
+			FROM
+				kegiatan_liturgi
+			WHERE
+				kegiatan_id='$id'
 				$where
 			LIMIT 1";
 		$sth = $this->db->query($sql);
@@ -233,7 +233,7 @@ class Kegiatanliturgi_model extends Model
 
 	}
 
-	   
+
 
 
 	/**
@@ -241,7 +241,7 @@ class Kegiatanliturgi_model extends Model
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -252,7 +252,7 @@ class Kegiatanliturgi_model extends Model
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = trim($pdata['order']);
@@ -263,27 +263,27 @@ class Kegiatanliturgi_model extends Model
         {
             $order = ' ORDER BY kegiatan_id desc ';
         }
-        
+
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
 			 FROM kegiatan_liturgi
-			
+
 			 WHERE 1=1
-			 
-			     
+
+
 			     $where
-			     
+
 			     $order
-			     
+
 			     $limit
 			 ";
 
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
 		$tot = 0;
-		
+
 		//get data
 		if ($ok > 0)
 		{
@@ -291,7 +291,7 @@ class Kegiatanliturgi_model extends Model
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}
@@ -303,14 +303,14 @@ class Kegiatanliturgi_model extends Model
 		return array('status' => $ok, 'data' => $data , 'total' => $mtotal );
 
 	}
-    
-    
+
+
 	/**
 	| @name
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -323,7 +323,7 @@ class Kegiatanliturgi_model extends Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -333,7 +333,7 @@ class Kegiatanliturgi_model extends Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 

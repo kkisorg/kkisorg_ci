@@ -5,18 +5,18 @@
 |--------------------------------------------------------------------------
 | @Desc    : Dombaku model
 | @Date    : 2012-06-16
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : gabriela.kartika@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Dombaku_model extends Model
+class Dombaku_model extends CI_Model
 {
 
 	/**
@@ -24,22 +24,22 @@ class Dombaku_model extends Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function Dombaku_model()
+	**/
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//more
 	}
 
@@ -49,21 +49,21 @@ class Dombaku_model extends Model
 	|      - add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function add($pdata=null)
 	{
 
 		//fmt-params
 		$title         = addslashes(trim($pdata['title']));
-		$short_desc   = addslashes(trim($pdata['short_desc'] ));	
+		$short_desc   = addslashes(trim($pdata['short_desc'] ));
     	$image     		= addslashes(trim($pdata['image'] ));
 		$publish      = addslashes(trim($pdata['publish'] ));
 		$by           = addslashes(trim($pdata['created_by']));
@@ -71,19 +71,19 @@ class Dombaku_model extends Model
 		//exec
 		$sql = "
 			 INSERT INTO dombaku (
-			 	title, 
+			 	title,
 			 	short_desc,
 			 	publish,
 			 	datein,
 			 	timein,
 			 	created_by
-			 	) 
+			 	)
 			 VALUES (
-			 	'$title', 
+			 	'$title',
 			 	'$short_desc',
-			 	'$publish', 
-			 	curdate(), 
-			 	curtime(), 
+			 	'$publish',
+			 	curdate(),
+			 	curtime(),
 			 	'$by'
 			 	)
 		       ";
@@ -92,30 +92,30 @@ class Dombaku_model extends Model
 		$ok  = $this->db->affected_rows();
 
 		//get ref
-		$ref = $this->db->insert_id();				
+		$ref = $this->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
-		
+
 		//update image
     if($image!='')
     {
       $image = "dombaku_".$ref.".".$image;
-      
+
       //exec
   		$sql = "UPDATE dombaku
-  		
-  						SET 
-  						    image                       =  '$image',                  
-  							updated                       =  now()                 
-  
-  						WHERE 
-  						    id='$ref' 
+
+  						SET
+  						    image                       =  '$image',
+  							updated                       =  now()
+
+  						WHERE
+  						    id='$ref'
   						LIMIT 1";
-  
+
   		$sth = $this->db->query($sql);
   		$ok  = $this->db->affected_rows();
-  		
+
   		//tracing ;-)
 		  log_message("DEBUG","add image() : info [ $sql : #$ok  ] ");
     }
@@ -131,23 +131,23 @@ class Dombaku_model extends Model
 	|      - update
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update($pdata=null)
 	{
 		//fmt-params
 		$id       = addslashes(trim($pdata['id']));
-		
+
     	//fmt-params
 	  	$title         = addslashes(trim($pdata['title']));
-		$short_desc   = addslashes(trim($pdata['short_desc'] ));	
+		$short_desc   = addslashes(trim($pdata['short_desc'] ));
     	$image     		= addslashes(trim($pdata['image'] ));
 		$publish      = addslashes(trim($pdata['publish'] ));
 
@@ -157,25 +157,25 @@ class Dombaku_model extends Model
     	{
       		$upd_img = "image =  '$image',";
     	}
-		
+
 		//exec
-		$sql = "UPDATE dombaku 
-				SET 
-				title    = '$title', 
-				short_desc   = '$short_desc', 
+		$sql = "UPDATE dombaku
+				SET
+				title    = '$title',
+				short_desc   = '$short_desc',
 			  	$upd_img
 			  	publish       = '$publish',
-				updated       = Now(), 
-				updated_by    = '$by' 
-			WHERE 
-			    id='$id' 
+				updated       = Now(),
+				updated_by    = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -186,15 +186,15 @@ class Dombaku_model extends Model
 	|      - delete
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function delete($pdata=null)
 	{
 		//fmt-params
@@ -202,20 +202,20 @@ class Dombaku_model extends Model
 		$by       = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE dombaku 
-			SET 
-				status        = '0', 
-				updated       = Now(), 
-				updated_by    = '$by' 
-			WHERE 
-			    id='$id' 
+		$sql = "UPDATE dombaku
+			SET
+				status        = '0',
+				updated       = Now(),
+				updated_by    = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","delete() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -227,15 +227,15 @@ class Dombaku_model extends Model
 	|      - select_by_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata=null)
 	{
 		//fmt-params
@@ -244,11 +244,11 @@ class Dombaku_model extends Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				dombaku 
-			WHERE 
-				id='$id' 
+				*
+			FROM
+				dombaku
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -268,7 +268,7 @@ class Dombaku_model extends Model
 
 	}
 
-	   
+
 
 
 	/**
@@ -276,7 +276,7 @@ class Dombaku_model extends Model
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -287,7 +287,7 @@ class Dombaku_model extends Model
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = trim($pdata['order']);
@@ -295,26 +295,26 @@ class Dombaku_model extends Model
 		$where    = trim($pdata['where'] );
 
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
 			 FROM dombaku
-			
+
 			 WHERE 1=1
-			 
+
 			 AND status = 1
-			     
+
 			     $where
-			     
+
 			     $order
-			     
+
 			     $limit
 			 ";
 
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
 		$tot = 0;
-		
+
 		//get data
 		if ($ok > 0)
 		{
@@ -322,7 +322,7 @@ class Dombaku_model extends Model
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}
@@ -335,15 +335,15 @@ class Dombaku_model extends Model
 
 	}
 
-    
-    
-	
+
+
+
 	/**
 	| @title
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -356,7 +356,7 @@ class Dombaku_model extends Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -366,7 +366,7 @@ class Dombaku_model extends Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 

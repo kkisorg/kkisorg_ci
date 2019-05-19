@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 | header + menu
 */
@@ -6,9 +6,9 @@ include_once('header.php');
 include_once('menu.php');
 
 ?>
-<!--// s-content //-->	
+<!--// s-content //-->
 
-            
+
 			<div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -27,15 +27,15 @@ include_once('menu.php');
 			<!--//status//-->
             <div class="row">
                 <div class="col-lg-12">
-                    <p class="bg-danger">Sorry, you don't have enough privilege to access this page.</p> 
-                    
-				    
-				    <?php include_once('login.fieldset.php');?>   
+                    <p class="bg-danger">Sorry, you don't have enough privilege to access this page.</p>
+
+
+				    <?php include_once('login.fieldset.php');?>
           </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->      
+            <!-- /.row -->
       </div>
-      
-<!--// e-content //-->						
+
+<!--// e-content //-->
 <?php include_once('footer.php')?>

@@ -5,42 +5,42 @@
 |--------------------------------------------------------------------------
 | @Desc    : user controller
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
-class Role extends Controller 
+class Role extends CI_Controller
 {
 
-	function Role()
+	function __construct()
 	{
-		parent::Controller();	
-		
+		parent::__construct();
+
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//misc
 		$this->load->helper('misc');
-		
+
 		//more
 		$this->load->model('User_role_model','user_role_model');
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - index
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller
@@ -51,16 +51,16 @@ class Role extends Controller
 		//view
 		$this->view();
 	}
-	
+
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -71,7 +71,7 @@ class Role extends Controller
 		//perms
 		$this->etc->check_permission('ROLE.LIST');
 
-		$this->ajx_view(false);		
+		$this->ajx_view(false);
 	}
 
 	/**
@@ -79,10 +79,10 @@ class Role extends Controller
 	|      - afrm
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - show the add form for new
@@ -100,7 +100,7 @@ class Role extends Controller
 		//set data
 		$vdata['jData_active_list'] = $this->config->item('DEFAULT_ACTIVE_INACTIVE_LIST');
 		$vdata['jData_role_list']   = $rlist;
-		
+
 		//view
 		$this->load->view('role.add.frm.php',$vdata);
 
@@ -111,10 +111,10 @@ class Role extends Controller
 	|      - afrm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - process new user profile
@@ -128,7 +128,7 @@ class Role extends Controller
 		//get chk post
 		$id   = trim($this->input->get_post('id'   ));
 		$hash = trim($this->input->get_post('hash' ));
-		
+
 		//params
 		log_message("DEBUG","afrm_proc() : info-params [ $hash : $id ]");
 
@@ -138,7 +138,7 @@ class Role extends Controller
 		{
 			//set status
 			log_message("DEBUG","afrm_proc() : info [ NOT CLICKED ]");
-			
+
 			//fwd
 			$this->load->view("role.view.php");
 			return;
@@ -147,30 +147,30 @@ class Role extends Controller
 
 		//set rules
 		$this->set_rules_for_add();
-	
+
 		//chk rules
 		if ($this->form_validation->run() == FALSE)
 		{
-		
+
 			log_message("DEBUG","afrm_proc() : info [ VALIDATION FAILED ]");
-			
+
 			//fwd
 			$this->load->view("role.add.frm.php");
-			return;		
+			return;
 		}
-		
+
 		//set p-data
 		$pdata               = null;
 		$pdata['name']       = trim($this->input->get_post('name' ));;
 		$pdata['desc']       = trim($this->input->get_post('description' ));;
 		$pdata['created_by'] = $this->etc->get_created_by();
-		
-		
+
+
 		//exec
 		$pret                = $this->user_role_model->add($pdata);
 		if(!$pret['status'])
 		{
-		
+
 			//set status
 			$this->etc->set_error_message($this->config->item('ROLE_ADD_UNKNOWN_ERR_MSG'));
 
@@ -178,24 +178,24 @@ class Role extends Controller
 			$this->load->view("role.add.frm.php");
 			return;
 		}
-		
+
 		//okay
 		$this->etc->set_success_message($this->config->item('ROLE_ADD_OK_MSG'));
-		
+
 		//fwd
 		redirect(site_url("role/view"));
 		return;
-	}		
+	}
 
 	/**
 	| @name
 	|      - efrm
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - show the edit form confirmation msg
@@ -208,10 +208,10 @@ class Role extends Controller
 
 		//params
 		log_message("DEBUG","efrm() : info-params [ $hash : $id ]");
-		
+
 		//calc-hash
 		$hstatus = u_decrypt_hash($id, $hash);
-		
+
 		//invalid id
 		if(!$hstatus)
 		{
@@ -221,16 +221,16 @@ class Role extends Controller
 			redirect(site_url("role/view"));
 			return;
 		}
-		 
+
 		//get rec
 		$gdata = $this->user_role_model->select_by_id( array('id' => $id) );
-		
+
 		//invalid id
 		if(!$gdata['status'])
 		{
 			//set status
 			$this->etc->set_error_message($this->config->item('ROLE_UPD_UNKNOWN_REC_MSG'));
-		
+
 			//fwd
 			redirect(site_url("role/view"));
 			return;
@@ -244,23 +244,23 @@ class Role extends Controller
 		$vdata['jData_Total']       = 0;
 		$vdata['jData']             = $gdata['data'];
 		$vdata['jData_Hidden']      = array('id'=> $id, 'hash' => $hash, 'name' => $gdata['data']->name);
-		
-		
+
+
 		//view
 		$this->load->view('role.edit.frm.php',$vdata);
 
 	}
-	
+
 
 	/**
 	| @name
 	|      - efrm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - show the edit form
@@ -274,12 +274,12 @@ class Role extends Controller
 		//get chk post
 		$id   = trim($this->input->get_post('id'));
 		$hash = trim($this->input->get_post('hash'));
-		
+
 		//params
 		log_message("DEBUG","efrm_proc() : info-params [ $hash : $id ]");
 
 
-	
+
 		//calc-hash
 		$hstatus = u_decrypt_hash($id, $hash);
 
@@ -291,22 +291,22 @@ class Role extends Controller
 		$vdata['jData_Total']       = 0;
 		$vdata['jData']             = $gdata['data'];
 		$vdata['jData_Hidden']      = array('id'=> $id, 'hash' => $hash, 'email' => $gdata['data']->email);
-		
-		
+
+
 		//invalid id
 		if(!$hstatus)
 		{
 			//set status
 			$this->etc->set_error_message($this->config->item('ROLE_DEL_UNKNOWN_REC_MSG'));
-			
+
 			log_message("DEBUG","efrm_proc() : info [ DECRYPT FAILED ]");
-			
+
 			//view
 			$this->load->view('role.edit.frm.php',$vdata);
 			return;
 		}
 
-	
+
 		//invalid id
 		if(!$gdata['status'])
 		{
@@ -319,7 +319,7 @@ class Role extends Controller
 			$this->load->view('role.edit.frm.php',$vdata);
 			return;
 		}
-		
+
 
 		//set p-data
 		$pdata               = null;
@@ -327,15 +327,15 @@ class Role extends Controller
 		$pdata['desc']       = trim($this->input->get_post('description' ));
 		$pdata['updated_by'] = $this->etc->get_updated_by();
 		$pdata['id']         = $id;
-		
+
 		//upd8 it;-)
 		$ddata = $this->user_role_model->update($pdata);
-		
+
 		if($ddata['status'])
 		{
 			//set status
 			$this->etc->set_success_message($this->config->item('ROLE_UPD_OK_MSG'));
-		
+
 		}
 		else
 		{
@@ -346,18 +346,18 @@ class Role extends Controller
 		//fwd
 		redirect(site_url("role/view"));
 		return;
-		
-		
+
+
 	}
 	/**
 	| @name
 	|      - dfrm
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - show the delete form confirmation msg
@@ -370,10 +370,10 @@ class Role extends Controller
 
 		//params
 		log_message("DEBUG","dfrm() : info-params [ $hash : $id ]");
-		
+
 		//calc-hash
 		$hstatus = u_decrypt_hash($id, $hash);
-		
+
 		//invalid id
 		if(!$hstatus)
 		{
@@ -383,45 +383,45 @@ class Role extends Controller
 			redirect(site_url("role/view"));
 			return;
 		}
-		
+
 		//get rec
 		$gdata = $this->user_role_model->select_by_id( array('id' => $id) );
-		
+
 		//invalid id
 		if(!$gdata['status'])
 		{
 			//set status
 			$this->etc->set_error_message($this->config->item('ROLE_DEL_UNKNOWN_REC_MSG'));
-		
+
 			//fwd
 			redirect(site_url("role/view"));
 			return;
 		}
 
-		
-		
-		
+
+
+
 		//fmt view data
 		$vdata['jData_Total']    = 0;
 		$vdata['jData']          = $gdata['data'];
 		$vdata['jData_Hidden']   = array('id'=> $id, 'hash' => $hash);
-		
-		
+
+
 		//view
 		$this->load->view('role.delete.frm.php',$vdata);
 
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - dfrm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - show the delete form confirmation msg
@@ -435,7 +435,7 @@ class Role extends Controller
 		//get chk post
 		$id   = trim($this->input->get_post('id'));
 		$hash = trim($this->input->get_post('hash'));
-		
+
 		//params
 		log_message("DEBUG","dfrm_proc() : info-params [ $hash : $id ]");
 
@@ -445,7 +445,7 @@ class Role extends Controller
 		{
 			//set status
 			log_message("DEBUG","dfrm_proc() : info [ CANCELLED ]");
-			
+
 			//fwd
 			redirect(site_url("role/view"));
 			return;
@@ -460,9 +460,9 @@ class Role extends Controller
 		{
 			//set status
 			$this->etc->set_error_message($this->config->item('ROLE_DEL_UNKNOWN_REC_MSG'));
-			
+
 			log_message("DEBUG","dfrm_proc() : info [ DECRYPT FAILED ]");
-			
+
 			//fwd
 			redirect(site_url("role/view"));
 			return;
@@ -478,14 +478,14 @@ class Role extends Controller
 			$this->etc->set_error_message($this->config->item('ROLE_DEL_UNKNOWN_REC_MSG'));
 
 			log_message("DEBUG","dfrm_proc() : info [ NOT IN DB ]");
-			
+
 			//fwd
 			redirect(site_url("role/view"));
 			return;
 		}
-		
+
 		//admin cant be deleted
-		if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $id ) 
+		if($this->config->item('DEFAULT_ROLE_ROOT_ID') == $id )
 		{
 			//set status
 			$this->etc->set_error_message($this->config->item('ROLE_DEL_UNKNOWN_REC_MSG'));
@@ -501,13 +501,13 @@ class Role extends Controller
 		//delete it;-)
 		$ddata = $this->user_role_model->delete(array(
 								'id'         => $id,
-							     )	
+							     )
 						           );
 		if($ddata['status'])
 		{
 			//set status
 			$this->etc->set_success_message($this->config->item('ROLE_DEL_OK_MSG'));
-		
+
 		}
 		else
 		{
@@ -518,18 +518,18 @@ class Role extends Controller
 		//fwd
 		redirect(site_url("role/view"));
 		return;
-		
-		
+
+
 	}
 	/**
 	| @name
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - default controller ( view list )
@@ -539,44 +539,44 @@ class Role extends Controller
 	{
 		//perms
 		$this->etc->check_permission('ROLE.LIST');
-		
+
 		//sorting
 		$sortdata   = array(
-				"id"   ,   
-				"name"  ,  
+				"id"   ,
+				"name"  ,
 				"description",
 				"created");
 
 		//fmt params
 		$fdata = fmt_ajx_params($sortdata);
-		
+
 		//dmp
 		$dmp   = @var_export($fdata,true);
 		log_message("DEBUG","ajx_view() : params [ $dmp ]");
-		
+
 		//role-list
 		$rdata = $this->user_role_model->get();
 		$rlist = $rdata['data'];
 		$rdata['total'] = $rdata['total']==''?0:$rdata['total'];
-		
+
 		$json_str = $this->fmt_jason_data(
-						$rlist, 
-						$fdata['page'], 
+						$rlist,
+						$fdata['page'],
 						$rdata['total'],
 						$fdata['draw']
 						);
-		
+
 		//fmt view data
 		$vdata['jData_Total']    = @intval($rdata['total']);
 		$vdata['jData_Str']      = $json_str;
 		$vdata['jData_Ajax']     = true;
-		
+
 		//view
 		if(!$v)
 		   $this->load->view('role.view.php',$vdata);
 		else
 		   echo $json_str;
-		
+
 	}
 
 	/**
@@ -584,10 +584,10 @@ class Role extends Controller
 	|      - fmt_jason_data
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      - jason-data formatter
@@ -595,7 +595,7 @@ class Role extends Controller
 	**/
 	function fmt_jason_data($role_list=null, $page=1, $total=0, $draw=1)
 	{
-	
+
 		//alist
 		$alist = $this->config->item('DEFAULT_ACTIVE_INACTIVE_LIST');
 		//init jason-data
@@ -609,34 +609,34 @@ class Role extends Controller
 		{
 			$mhash    = u_encrypt_hash($vv->id);
 			//edit
-			$seq      = array('role', 
-					  'efrm', 
+			$seq      = array('role',
+					  'efrm',
 					  @rawurlencode( $mhash ) ,
 					  @rawurlencode("$vv->id"),
 					  );
 			$ehref    = '<a class="btn btn-primary btn-xs" href="'.site_url($seq).'">Edit</a>';
-			$seq      = array('role', 
-					  'dfrm', 
+			$seq      = array('role',
+					  'dfrm',
 					  @rawurlencode( $mhash ) ,
 					  @rawurlencode("$vv->id"),
 					  );
 			$dhref    = '<a class="btn btn-primary btn-xs" href="'.site_url($seq).'">Delete</a>';
 			$hrefs    = $ehref."&nbsp;&nbsp;".$dhref;
 
-			 
+
 			//delete
 			$jres .= '     [ ' .
-					'"'. addslashes( $vv->name  )  .'",'. 
+					'"'. addslashes( $vv->name  )  .'",'.
 					'"'. addslashes( $vv->description )  .'",'.
 					'"'. addslashes( $vv->created ) .'",'.
-					'"'. addslashes( $hrefs     )   .'" '. 
+					'"'. addslashes( $hrefs     )   .'" '.
 					"],\n";
 		}
 		//trim
 		$jres  = substr($jres, 0, strlen($jres)-2);
 		$jres .= "\n]}\n";
-		
-		
+
+
 		//tracing ;-)
 		log_message("DEBUG","fmt_jason_data() : info [ $jres ] ");
 
@@ -652,13 +652,13 @@ class Role extends Controller
 	|      - set_rules_for_modify
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - set rules for modify  user    
+	|      - set rules for modify  user
 	|
 	**/
 	function set_rules_for_modify()
@@ -666,7 +666,7 @@ class Role extends Controller
 		$this->set_rules_for_add();
 	}
 
-	 
+
 
 
 	/**
@@ -674,15 +674,15 @@ class Role extends Controller
 	|      - set_rules_for_add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - set rules for add user    
+	|      - set rules for add user
 	|
-	**/	
+	**/
 	function set_rules_for_add()
 	{
 		//set local rules for add
@@ -692,22 +692,22 @@ class Role extends Controller
 
 
 
-	
-	
+
+
 	/**
 	| @name
 	|      - check_uniq_mail
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
 	|      -  extra rules for checking mail
 	|
-	**/	
+	**/
 	function check_uniq_role()
 	{
 		//init params
@@ -725,7 +725,7 @@ class Role extends Controller
 		if( !$is_len )
 		{
 			$this->form_validation->set_message(
-					'check_uniq_role', 
+					'check_uniq_role',
 					$this->config->item('ROLE_ADD_ERR_MSG_NAME_REQUIRED')
 					);
 			return false;
@@ -733,7 +733,7 @@ class Role extends Controller
 		else if($rdata['status'])
 		{
 			$this->form_validation->set_message(
-						'check_uniq_role', 
+						'check_uniq_role',
 						$this->config->item('ROLE_ADD_ERR_MSG_NAME_ALREADY_USED')
 						);
 			return false;
@@ -742,7 +742,7 @@ class Role extends Controller
 		{
 			return true;
 		}
-	}	
+	}
 }
 /* End of file welcome.php */
 /* Location: ./system/application/controllers/user.php */

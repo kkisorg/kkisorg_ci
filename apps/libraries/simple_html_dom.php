@@ -36,7 +36,7 @@
  * @author Rus Carroll
  * @version 1.5 ($Rev: 210 $)
  * @package PlaceLocalInclude
- * @subpackage simple_html_dom
+ * @subpackage Simple_html_dom
  */
 
 /**
@@ -71,7 +71,7 @@ define('MAX_FILE_SIZE', 600000);
 function file_get_html($url, $use_include_path = false, $context=null, $offset = -1, $maxLen=-1, $lowercase = true, $forceTagsClosed=true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN=true, $defaultBRText=DEFAULT_BR_TEXT, $defaultSpanText=DEFAULT_SPAN_TEXT)
 {
 	// We DO force the tags to be terminated.
-	$dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
+	$dom = new Simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
 	// For sourceforge users: uncomment the next line and comment the retreive_url_contents line 2 lines down if it is not already done.
 	$contents = file_get_contents($url, $use_include_path, $context, $offset);
 	// Paperg - use our own mechanism for getting the contents as we want to control the timeout.
@@ -88,7 +88,7 @@ function file_get_html($url, $use_include_path = false, $context=null, $offset =
 // get html dom from string
 function str_get_html($str, $lowercase=true, $forceTagsClosed=true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN=true, $defaultBRText=DEFAULT_BR_TEXT, $defaultSpanText=DEFAULT_SPAN_TEXT)
 {
-	$dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
+	$dom = new Simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
 	if (empty($str) || strlen($str) > MAX_FILE_SIZE)
 	{
 		$dom->clear();
@@ -112,7 +112,7 @@ function dump_html_tree($node, $show_attr=true, $deep=0)
  *
  * @package PlaceLocalInclude
  */
-class simple_html_dom_node
+class Simple_html_dom_node
 {
 	public $nodetype = HDOM_TYPE_TEXT;
 	public $tag = 'text';
@@ -984,7 +984,7 @@ class simple_html_dom_node
  *
  * @package PlaceLocalInclude
  */
-class simple_html_dom
+class Simple_html_dom
 {
 	public $root = null;
 	public $nodes = array();
@@ -1173,7 +1173,7 @@ class simple_html_dom
 		$this->lowercase = $lowercase;
 		$this->default_br_text = $defaultBRText;
 		$this->default_span_text = $defaultSpanText;
-		$this->root = new simple_html_dom_node($this);
+		$this->root = new Simple_html_dom_node($this);
 		$this->root->tag = 'root';
 		$this->root->_[HDOM_INFO_BEGIN] = -1;
 		$this->root->nodetype = HDOM_TYPE_ROOT;
@@ -1190,7 +1190,7 @@ class simple_html_dom
 		}
 
 		// text
-		$node = new simple_html_dom_node($this);
+		$node = new Simple_html_dom_node($this);
 		++$this->cursor;
 		$node->_[HDOM_INFO_TEXT] = $s;
 		$this->link_nodes($node, false);
@@ -1290,7 +1290,7 @@ class simple_html_dom
 		if ($this->char==='/')
 		{
 			$this->char = (++$this->pos<$this->size) ? $this->doc[$this->pos] : null; // next
-			// This represents the change in the simple_html_dom trunk from revision 180 to 181.
+			// This represents the change in the Simple_html_dom trunk from revision 180 to 181.
 			// $this->skip($this->token_blank_t);
 			$this->skip($this->token_blank);
 			$tag = $this->copy_until_char('>');
@@ -1350,7 +1350,7 @@ class simple_html_dom
 			return true;
 		}
 
-		$node = new simple_html_dom_node($this);
+		$node = new Simple_html_dom_node($this);
 		$node->_[HDOM_INFO_BEGIN] = $this->cursor;
 		++$this->cursor;
 		$tag = $this->copy_until($this->token_slash);
@@ -1551,7 +1551,7 @@ class simple_html_dom
 	// as a text node
 	protected function as_text_node($tag)
 	{
-		$node = new simple_html_dom_node($this);
+		$node = new Simple_html_dom_node($this);
 		++$this->cursor;
 		$node->_[HDOM_INFO_TEXT] = '</' . $tag . '>';
 		$this->link_nodes($node, false);

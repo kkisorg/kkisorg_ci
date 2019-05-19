@@ -5,18 +5,18 @@
 |--------------------------------------------------------------------------
 | @Desc    : Page_model
 | @Date    : 2011-05-10
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : gabriela.kartika@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Page_model extends Model
+class Page_model extends CI_Model
 {
 
 	/**
@@ -24,22 +24,22 @@ class Page_model extends Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function Page_model()
+	**/
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//more
 	}
 
@@ -49,19 +49,19 @@ class Page_model extends Model
 	|      - select_page
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata)
 	{
         $page_name = addslashes(trim($pdata['page_name']));
-        
+
 		//exec
 		$sql = "SELECT
           *
@@ -80,29 +80,29 @@ class Page_model extends Model
 
 		//tracing ;-)
 		log_message("DEBUG","select_by_id() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok, 'data' => $data  );
 
 
 	}
 
-	
-  
+
+
   /**
 	| @name
 	|      - save
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function save($pdata)
 	{
 
@@ -113,17 +113,17 @@ class Page_model extends Model
 		$show_editor             = addslashes(trim($pdata['show_editor'] ));
 
         $res = $this->select_by_id($pdata);
-        
+
         if($res['status']==0)
         {
             $sql = "insert into
                     pages(page_k,page_v,image,show_editor,datein,timein)
                     values('$page_name','$page','$image','$show_editor',curdate(),curtime())
                     ";
-                    
+
             $sth = $this->db->query($sql);
             $ok  = $this->db->affected_rows();
-    
+
             //tracing ;-)
             log_message("DEBUG","save() : info [ $sql : #$ok #$ref ] ");
         }
@@ -131,10 +131,10 @@ class Page_model extends Model
         {
             if($image!='')
             { $upd_img = ",image = '$image'"; }
-            
-            $sql = "update  
-                  pages 
-                set 
+
+            $sql = "update
+                  pages
+                set
                   page_v = '$page',
                   show_editor = '$show_editor'
                   $upd_img
@@ -142,21 +142,21 @@ class Page_model extends Model
                   page_k = '$page_name' limit 1";
             $sth = $this->db->query($sql);
             $ok  = $this->db->affected_rows();
-    
+
             //tracing ;-)
             log_message("DEBUG","update() : info [ $sql : #$ok #$ref ] ");
 		}
 
     return array('status'=>$ok);
 	}
-	
-	
+
+
 	/**
 	| @title
 	|      - get_data_page
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -167,27 +167,27 @@ class Page_model extends Model
 	**/
 	function get_data_page($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
         $page_k  = strtolower(addslashes(trim($pdata['key'])));
-        
-      
+
+
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
 			 FROM pages
-			
+
 			 WHERE 1=1
-			 AND LOWER(page_k) = '$page_k'  
-			 LIMIT 1   
+			 AND LOWER(page_k) = '$page_k'
+			 LIMIT 1
 			 ";
 
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
 		$tot = 0;
-		
+
 		//get data
 		if ($ok > 0)
 		{
@@ -195,27 +195,27 @@ class Page_model extends Model
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}
-		
+
 		//tracing ;-)
 		log_message("DEBUG","get_data_page() : info [ $sql : #$ok ] ");
-		
-		
+
+
 
 		//return
 		return $data[0];
 
 	}
-	
+
 	/**
 	| @name
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -228,7 +228,7 @@ class Page_model extends Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -238,11 +238,11 @@ class Page_model extends Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
-  
+	}
 
-	
-  
+
+
+
 
 
 }

@@ -5,18 +5,18 @@
 |--------------------------------------------------------------------------
 | @Desc    : role model
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_role_model extends Model
+class User_role_model extends CI_Model
 {
 
 	/**
@@ -24,18 +24,18 @@ class User_role_model extends Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function User_role_model()
+	**/
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
@@ -47,18 +47,18 @@ class User_role_model extends Model
 	|      - add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function add($pdata=null)
 	{
-		
+
 		//fmt-params
 		$name     = addslashes(trim($pdata['name']));
 		$desc     = addslashes(trim($pdata['desc']));
@@ -68,17 +68,17 @@ class User_role_model extends Model
 		//exec
 		$sql = "
 			 INSERT INTO user_roles (
-			 	name, 
-			 	description, 
-			 	parentId, 
-			 	created, 
+			 	name,
+			 	description,
+			 	parentId,
+			 	created,
 			 	created_by
-			 	) 
+			 	)
 			 VALUES (
-			 	'$name', 
-			 	'$desc', 
-			 	'$parent', 
-			 	Now(), 
+			 	'$name',
+			 	'$desc',
+			 	'$parent',
+			 	Now(),
 			 	'$by'
 			 	)
 		       ";
@@ -87,7 +87,7 @@ class User_role_model extends Model
 		$ok  = $this->db->affected_rows();
 
 		//get ref
-		$ref = $this->db->insert_id();				
+		$ref = $this->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
@@ -103,15 +103,15 @@ class User_role_model extends Model
 	|      - update
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update($pdata=null)
 	{
 		//fmt-params
@@ -121,21 +121,21 @@ class User_role_model extends Model
 		$by       = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE user_roles 
-			SET 
-				name          = '$name', 
-				description   = '$desc', 
-				updated       = Now(), 
-				updated_by    = '$by' 
-			WHERE 
-			    id='$id' 
+		$sql = "UPDATE user_roles
+			SET
+				name          = '$name',
+				description   = '$desc',
+				updated       = Now(),
+				updated_by    = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -147,15 +147,15 @@ class User_role_model extends Model
 	|      - delete
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function delete($pdata=null)
 	{
 		//fmt-params
@@ -182,15 +182,15 @@ class User_role_model extends Model
 	|      - select_by_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata=null)
 	{
 		//fmt-params
@@ -199,11 +199,11 @@ class User_role_model extends Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				user_roles 
-			WHERE 
-				id='$id' 
+				*
+			FROM
+				user_roles
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -223,7 +223,7 @@ class User_role_model extends Model
 
 	}
 
-	   
+
 
 
 
@@ -232,7 +232,7 @@ class User_role_model extends Model
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -243,20 +243,20 @@ class User_role_model extends Model
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = addslashes(trim($pdata['order']));
 		$limit    = addslashes(trim($pdata['limit']));
 
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
-			 FROM user_roles 
-			
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
+			 FROM user_roles
+
 			 WHERE 1=1
-			 
+
 			     $order
 			     $limit
 			 ";
@@ -270,7 +270,7 @@ class User_role_model extends Model
 			{
 			     $data[$row->id] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}
@@ -282,21 +282,21 @@ class User_role_model extends Model
 		return array('status' => $ok, 'data' => $data , 'total' => $mtotal );
 
 	}
-	
+
 	/**
 	| @name
 	|      - select_by_name
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_name($pdata=null)
 	{
 		//fmt-params
@@ -308,12 +308,12 @@ class User_role_model extends Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				user_roles 
-			WHERE 
-				name  ='$name' 
-				$pidwhr 
+				*
+			FROM
+				user_roles
+			WHERE
+				name  ='$name'
+				$pidwhr
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -337,7 +337,7 @@ class User_role_model extends Model
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -350,7 +350,7 @@ class User_role_model extends Model
 	{
 		//init
 		$total = 0;
-		$query = " SELECT FOUND_ROWS() as rows";
+		$query = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $query );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -360,7 +360,7 @@ class User_role_model extends Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 

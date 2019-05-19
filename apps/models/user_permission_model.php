@@ -5,18 +5,18 @@
 |--------------------------------------------------------------------------
 | @Desc    : permission model
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class User_permission_model extends Model
+class User_permission_model extends CI_Model
 {
 
 	/**
@@ -24,22 +24,22 @@ class User_permission_model extends Model
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
-	function User_permission_model()
+	**/
+	function __construct()
 	{
-		parent::Model();
+		parent::__construct();
 
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//more
 		$this->load->model('User_role_model','user_role_model');
 
@@ -51,15 +51,15 @@ class User_permission_model extends Model
 	|      - add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status + ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function add($pdata=null)
 	{
 		//fmt-params
@@ -71,17 +71,17 @@ class User_permission_model extends Model
 		//exec
 		$sql = "
 			 INSERT INTO user_permissions (
-			 	role, 
-			 	resource, 
-			 	status, 
-			 	created, 
+			 	role,
+			 	resource,
+			 	status,
+			 	created,
 			 	created_by
-			 	) 
+			 	)
 			 VALUES (
-			 	'$role', 
-			 	'$resource', 
-			 	'$status', 
-			 	Now(), 
+			 	'$role',
+			 	'$resource',
+			 	'$status',
+			 	Now(),
 			 	'$by'
 			 	)
 		       ";
@@ -90,7 +90,7 @@ class User_permission_model extends Model
 		$ok  = $this->db->affected_rows();
 
 		//get ref
-		$ref = $this->db->insert_id();				
+		$ref = $this->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
@@ -106,15 +106,15 @@ class User_permission_model extends Model
 	|      - update
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function update($pdata=null)
 	{
 		//fmt-params
@@ -125,22 +125,22 @@ class User_permission_model extends Model
 		$by       = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE user_permissions 
-			SET 
-				role          = '$name', 
-				resource      = '$desc', 
-				status        = '$status', 
-				updated       = Now(), 
-				updated_by    = '$by' 
-			WHERE 
-			    id='$id' 
+		$sql = "UPDATE user_permissions
+			SET
+				role          = '$name',
+				resource      = '$desc',
+				status        = '$status',
+				updated       = Now(),
+				updated_by    = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -151,15 +151,15 @@ class User_permission_model extends Model
 	|      - set_status
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function set_status($pdata=null)
 	{
 		//fmt-params
@@ -168,20 +168,20 @@ class User_permission_model extends Model
 		$by       = addslashes(trim($pdata['updated_by']));
 
 		//exec
-		$sql = "UPDATE user_permissions 
-			SET 
-				status        = '$status', 
-				updated       = Now(), 
-				updated_by    = '$by' 
-			WHERE 
-			    id='$id' 
+		$sql = "UPDATE user_permissions
+			SET
+				status        = '$status',
+				updated       = Now(),
+				updated_by    = '$by'
+			WHERE
+			    id='$id'
 			LIMIT 1";
 
 		$sth = $this->db->query($sql);
 		$ok  = $this->db->affected_rows();
 		//tracing ;-)
 		log_message("DEBUG","update() : info [ $sql : #$ok ] ");
-		
+
 		//return
 		return array('status' => $ok);
 
@@ -192,15 +192,15 @@ class User_permission_model extends Model
 	|      - delete
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function delete($pdata=null)
 	{
 		//fmt-params
@@ -226,21 +226,21 @@ class User_permission_model extends Model
 	|      - delete_all
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function delete_all($filter='')
 	{
 		//fmt-params
 		$filter = addslashes(trim($filter));
 		$xwhere = (strlen($filter)) ? (" AND role != '$filter' ") : ('');
-		
+
 		//exec
 		$sql = "DELETE FROM user_permissions WHERE 1=1 $xwhere  ";
 		$sth = $this->db->query($sql);
@@ -254,21 +254,21 @@ class User_permission_model extends Model
 		return array('status' => $ok);
 
 	}
-	
+
 	/**
 	| @name
 	|      - delete_by_pair
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function delete_by_pair($pdata=null)
 	{
 		//fmt-params
@@ -295,15 +295,15 @@ class User_permission_model extends Model
 	|      - select_by_id
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_id($pdata=null)
 	{
 		//fmt-params
@@ -312,11 +312,11 @@ class User_permission_model extends Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				user_permissions 
-			WHERE 
-				id='$id' 
+				*
+			FROM
+				user_permissions
+			WHERE
+				id='$id'
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -336,7 +336,7 @@ class User_permission_model extends Model
 
 	}
 
-	   
+
 
 
 	/**
@@ -344,15 +344,15 @@ class User_permission_model extends Model
 	|      - select_by_pair
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - result set + status
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/	
+	**/
 	function select_by_pair($pdata=null)
 	{
 		//fmt-params
@@ -362,18 +362,18 @@ class User_permission_model extends Model
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
-				* 
-			FROM 
-				user_permissions 
-			WHERE 
-				role     = '$role' 
-				
+				*
+			FROM
+				user_permissions
+			WHERE
+				role     = '$role'
+
 				AND
-				
+
 				resource = '$res'
-				
+
 			ORDER BY id ASC
-			
+
 			LIMIT 1";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -393,7 +393,7 @@ class User_permission_model extends Model
 
 	}
 
-	   
+
 
 
 	/**
@@ -401,7 +401,7 @@ class User_permission_model extends Model
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -412,27 +412,27 @@ class User_permission_model extends Model
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = trim($pdata['order']);
 		$limit    = trim($pdata['limit'] );
 
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
-				* 
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
+				*
 			 FROM user_permissions
-			
+
 			 WHERE 1=1
-			 
+
 			     $order
 			     $limit
 			 ";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
 		$tot = 0;
-		
+
 		//get data
 		if ($ok > 0)
 		{
@@ -440,7 +440,7 @@ class User_permission_model extends Model
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}
@@ -458,7 +458,7 @@ class User_permission_model extends Model
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -471,7 +471,7 @@ class User_permission_model extends Model
 	{
 		//init
 		$total = 0;
-		$sql   = " SELECT FOUND_ROWS() as rows";
+		$sql   = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->db->query( $sql );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -481,7 +481,7 @@ class User_permission_model extends Model
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 	/**
@@ -489,7 +489,7 @@ class User_permission_model extends Model
 	|      - getX
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -500,20 +500,20 @@ class User_permission_model extends Model
 	**/
 	function getX($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = addslashes(trim($pdata['order']));
 		$limit    = addslashes(trim($pdata['limit']));
 
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
 				b.id   as resource,
 				b.name as resource_name,
-				a.id   as role, 
+				a.id   as role,
 				a.name as role_name,
-				( SELECT status FROM user_permissions WHERE role=a.id AND resource=b.id ) AS status 
+				( SELECT status FROM user_permissions WHERE role=a.id AND resource=b.id ) AS status
 
 			FROM
 
@@ -524,8 +524,8 @@ class User_permission_model extends Model
 			ORDER BY 1,3
 
 			$limit
-				
-			
+
+
 			 ";
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
@@ -538,7 +538,7 @@ class User_permission_model extends Model
 				//get all roles
 				$data[] = $row;
 			}
-			
+
 			//exec
 			$mtotal = $this->get_found_rows();
 		}

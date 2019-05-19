@@ -5,43 +5,43 @@
 |--------------------------------------------------------------------------
 | @Desc    : Blog Adm
 | @Date    : 2012-06-16
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : gabriela.kartika@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
-class Kegiatan_adm extends Controller 
+class Kegiatan_adm extends CI_Controller
 {
 
-	function Kegiatan_adm()
+	function __construct()
 	{
-		parent::Controller();	
-		
+		parent::__construct();
+
 		//loaders here ;-)
 		$this->load->database();
-		
+
 		//misc
 		$this->load->helper('misc');
-		
+
 		//more
 		$this->load->model('Kegiatan_model',     'kegiatan_model');
-		
+
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - index
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - default controller
@@ -59,10 +59,10 @@ class Kegiatan_adm extends Controller
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - default controller ( view list )
@@ -73,7 +73,7 @@ class Kegiatan_adm extends Controller
 		//perms
 		$this->etc->check_permission('KEGIATAN.LIST');
 
-		$this->ajx_view(false);		
+		$this->ajx_view(false);
 	}
 
 	/**
@@ -81,10 +81,10 @@ class Kegiatan_adm extends Controller
 	|      - view
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - default controller ( view list )
@@ -92,20 +92,20 @@ class Kegiatan_adm extends Controller
 	**/
 	function ajx_view($v=true)
 	{
-	
+
 		//globals here ;-)
 		global $g_SYSTEM_DATA;
 
 		//fmt
 		$name   = trim($g_SYSTEM_DATA['_REQUEST']['search']['value']);
-	
-    
+
+
         //perms
 		$this->etc->check_permission('KEGIATAN.LIST');
-	
+
 		//sorting
 		$sortdata   = array(
-				"kegiatan_id"  , 
+				"kegiatan_id"  ,
 				"created_date"  ,
 				"display",
 				);
@@ -116,7 +116,7 @@ class Kegiatan_adm extends Controller
 		//dmp
 		$dmp   = @var_export($fdata,true);
 		log_message("DEBUG","ajx_view() : params [ $dmp ]");
-	
+
 		//role-list
 		$rdata = $this->kegiatan_model->get(array(
 						'order' => $fdata['order'],
@@ -125,42 +125,42 @@ class Kegiatan_adm extends Controller
 		                             ));
 		$rlist = $rdata['data'];
 		$rdata['total'] = $rdata['total']==''?0:$rdata['total'];
-		
+
 		$json_str = $this->fmt_jason_data(
-						$rlist, 
-						$fdata['page'], 
+						$rlist,
+						$fdata['page'],
 						$rdata['total'],
 						$fdata['draw']
 						);
-	
+
 		//fmt view data
 		$vdata['jData_Total']    = @intval($rdata['total']);
 		$vdata['jData_Str']      = $json_str;
 		$vdata['jData_Ajax']     = true;
-		
+
 		//set data
 		$vdata['jName']     = $name;
-    
+
 
 		//view
 		if(!$v)
 		   $this->load->view('kegiatan.view.php',$vdata);
 		else
 		   echo $json_str;
-		
+
 	}
 
 
-	
+
 	/**
 	| @name
 	|      - fmt_filter
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - default controller ( view list )
@@ -170,13 +170,13 @@ class Kegiatan_adm extends Controller
 	{
 		//globals here ;-)
 		global $g_SYSTEM_DATA;
-		
+
 		//fmt
 		$name   = trim($g_SYSTEM_DATA['_REQUEST']['search']['value']);
 
 		$xwhere = '';
 		$bfr    = array();
-		
+
 		//dmp
 		$dmp   = @var_export($g_SYSTEM_DATA['_REQUEST'],true);
 		log_message("DEBUG","fmt_filter() : params [ $dmp ]");
@@ -189,23 +189,23 @@ class Kegiatan_adm extends Controller
 			//fmt
 			$name   = addslashes($name);
 			$bfr[]  =" kegiatan_title like '%$name%' ";
-		}	
-		
+		}
+
 		//fmt
 		$xwhere = @implode(" AND ", $bfr) ;
 		//give it back;
 		return $xwhere;
 	}
-		
+
 	/**
 	| @name
 	|      - fmt_jason_data
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - jason-data formatter
@@ -213,9 +213,9 @@ class Kegiatan_adm extends Controller
 	**/
 	function fmt_jason_data($plist=null, $page=1, $total=0, $draw=1)
 	{
-	
+
 		//alist
-		
+
 		//init jason-data
 		$jres = "{\"draw\": $draw,
 			    \"recordsTotal\" : $total,
@@ -227,34 +227,34 @@ class Kegiatan_adm extends Controller
 		{
 			$mhash    = u_encrypt_hash($vv->kegiatan_id);
 			//edit
-			$seq      = array('kegiatan_adm', 
-					  'efrm', 
+			$seq      = array('kegiatan_adm',
+					  'efrm',
 					  @rawurlencode( $mhash ) ,
 					  @rawurlencode("$vv->kegiatan_id"),
 					  );
 			$ehref    = '<a class="btn btn-primary btn-xs" href="'.site_url($seq).'">Edit</a>';
-			$seq      = array('kegiatan_adm', 
-					  'dfrm', 
+			$seq      = array('kegiatan_adm',
+					  'dfrm',
 					  @rawurlencode( $mhash ) ,
 					  @rawurlencode("$vv->kegiatan_id"),
-					  ); 
+					  );
 			$dhref    = '<a class="btn btn-primary btn-xs" href="'.site_url($seq).'">Delete</a>';
 			$hrefs    = $ehref."&nbsp;&nbsp;".$dhref;
 
       $publish = $vv->display==1?'Published':'Not Published';
 			//delete
 			$jres .= '     [ ' .
-					'"'. ( $vv->kegiatan_title  )  .'",'. 
+					'"'. ( $vv->kegiatan_title  )  .'",'.
 					'"'. addslashes( substr($vv->created_date,0,10)  )  .'",'.
 					'"'. addslashes( $publish  )  .'",'.
-					'"'. addslashes( $hrefs     )   .'" '. 
+					'"'. addslashes( $hrefs     )   .'" '.
 					"],\n";
 		}
 		//trim
 		$jres  = substr($jres, 0, strlen($jres)-2);
 		$jres .= "\n]}\n";
-		
-		
+
+
 		//tracing ;-)
 		log_message("DEBUG","fmt_jason_data() : info [ $jres ] ");
 
@@ -269,10 +269,10 @@ class Kegiatan_adm extends Controller
 	|      - afrm
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - show the add form for new
@@ -283,12 +283,12 @@ class Kegiatan_adm extends Controller
 		//perms
 		$this->etc->check_permission('KEGIATAN.ADD');
 
-		
+
 		$vdata['jData_Cal']         = 1;
 		//set data
 		$vdata['jData_publish_list'] = $this->config->item('DEFAULT_PUBLISH_NOTPUBLISH_LIST');
 
-		
+
 		//view
 		$this->load->view('kegiatan.add.frm.php',$vdata);
 
@@ -300,10 +300,10 @@ class Kegiatan_adm extends Controller
 	|      - afrm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - process new user profile
@@ -313,19 +313,19 @@ class Kegiatan_adm extends Controller
 	{
 		//perms
 		$this->etc->check_permission('KEGIATAN.ADD');
-    
+
 		//get chk post
 		$id   = trim($this->input->get_post('id'   , true));
 		$hash = trim($this->input->get_post('hash' , true));
-		
+
 		//set p-data
 		$pdata               = null;
 		$pdata['name']       = quotes_to_entities(trim($this->input->get_post('name'   , true)));
     	$pdata['content']       = trim($this->input->get_post('content', true));
     	$pdata['publish']       = trim($this->input->get_post('publish'    , true));
-    
-	
-    
+
+
+
 		$pdata['created_by']  = $this->etc->get_created_by();
 
 		//params
@@ -337,67 +337,67 @@ class Kegiatan_adm extends Controller
 		{
 			//set status
 			log_message("DEBUG","afrm_proc() : info [ NOT CLICKED ]");
-			
+
 			//fwd
 			$this->load->view('kegiatan.add.frm.php',$pdata);
-			return;            
+			return;
 
 		}
 
 		//set rules
 		$this->set_rules_for_add();
-	
+
 		//chk rules
 		if ($this->form_validation->run() == FALSE)
 		{
-		
+
 			log_message("DEBUG","afrm_proc() : info [ VALIDATION FAILED ]");
 			$pdata['jData_publish_list'] = $this->config->item('DEFAULT_PUBLISH_NOTPUBLISH_LIST');
-		  
-			
+
+
 			//fwd
 			$this->load->view('kegiatan.add.frm.php',$pdata);
-			return;		          
+			return;
 		}
-		
-	
+
+
 		//exec
 		$pret                = $this->kegiatan_model->add($pdata);
 		if(!$pret['status'])
 		{
-		
+
 			//set status
 			$this->etc->set_error_message('Failed to saved.');
 
 			//fwd
 			$this->load->view('kegiatan.add.frm.php',$pdata);
-			return;            
+			return;
 		}
-		
-		
-		
-		
+
+
+
+
 		//okay
 		$this->etc->set_success_message('Successfully saved data.');
-		
+
 		//fwd
 		redirect(site_url("kegiatan_adm/view"));
-		
+
 		return;
-	}		
+	}
 
 	/**
 	| @name
 	|      - set_rules_for_modify
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
-	|      - set rules for modify  user    
+	|      - set rules for modify  user
 	|
 	**/
 	function set_rules_for_modify()
@@ -405,40 +405,40 @@ class Kegiatan_adm extends Controller
 		$this->set_rules_for_add();
 	}
 
-	 
+
 
 	/**
 	| @name
 	|      - set_rules_for_add
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
-	|      - set rules for add user    
+	|      - set rules for add user
 	|
-	**/	
+	**/
 	function set_rules_for_add()
 	{
 		//set local rules for add
 		$this->form_validation->set_rules('name',     'Kegiatan Title',       'trim|required');
 		$this->form_validation->set_rules('content',     'Kegiatan Content',       'trim|required');
 	}
-	
-	
+
+
 
 	/**
 	| @name
 	|      - efrm
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - show the edit form confirmation msg
@@ -451,10 +451,10 @@ class Kegiatan_adm extends Controller
 
 		//params
 		log_message("DEBUG","efrm() : info-params [ $hash : $id ]");
-		
+
 		//calc-hash
 		$hstatus = u_decrypt_hash($id, $hash);
-		
+
 		//invalid id
 		if(!$hstatus)
 		{
@@ -464,25 +464,25 @@ class Kegiatan_adm extends Controller
 			redirect(site_url("kegiatan_adm/view"));
 			return;
 		}
-		
+
 		//get rec
 		$gdata = $this->kegiatan_model->select_by_id( array('id' => $id) );
-		
+
 		//invalid id
 		if(!$gdata['status'])
 		{
 			//set status
 			$this->etc->set_error_message('There is something wrong with the data.');
-		
+
 			//fwd
 			redirect(site_url("kegiatan_adm/view"));
 			return;
 		}
 
-		
+
 		$vdata['jData_Cal']         = 1;
-		
-		
+
+
 		//set data
 		$vdata['jData_Total']       = 0;
 		$vdata['jData']             = $gdata['data'];
@@ -490,27 +490,27 @@ class Kegiatan_adm extends Controller
 		//set data
 		$vdata['jData_publish_list'] = $this->config->item('DEFAULT_PUBLISH_NOTPUBLISH_LIST');
 
-		
+
 		$vdata['mhash']  = u_encrypt_hash($id);
-	
-		
+
+
 		//view
 		$this->load->view('kegiatan.edit.frm.php',$vdata);
-                     
-	}
-	
-	
 
-	
+	}
+
+
+
+
 	/**
 	| @name
 	|      - efrm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - show the edit form
@@ -524,12 +524,12 @@ class Kegiatan_adm extends Controller
 		//get chk post
 		$id   = trim($this->input->get_post('id'));
 		$hash = trim($this->input->get_post('hash'));
-		
+
 		//params
 		log_message("DEBUG","efrm_proc() : info-params [ $hash : $id ]");
 
 
-	
+
 		//calc-hash
 		$hstatus = u_decrypt_hash($id, $hash);
 
@@ -537,7 +537,7 @@ class Kegiatan_adm extends Controller
 		//get rec
 		$gdata = $this->kegiatan_model->select_by_id( array('id' => $id) );
 
-				
+
 		$vdata['jData_Cal']         = 1;
 
 		//set data
@@ -545,22 +545,22 @@ class Kegiatan_adm extends Controller
 		$vdata['jData']             = $gdata['data'];
 		$vdata['jData_Hidden']      = array('id'=> $id, 'hash' => $hash);
 		$vdata['jData_publish_list'] = $this->config->item('DEFAULT_PUBLISH_NOTPUBLISH_LIST');
-		
-		
+
+
 		//invalid id
-		if(!$hstatus)           
+		if(!$hstatus)
 		{
 			//set status
 			$this->etc->set_error_message('There is something wrong with the data');
-			
+
 			log_message("DEBUG","efrm_proc() : info [ DECRYPT FAILED ]");
-			
+
 			//view
 			$this->load->view('kegiatan.edit.frm.php',$vdata);
-			return;            
+			return;
 		}
 
-	
+
 		//invalid id
 		if(!$gdata['status'])
 		{
@@ -579,19 +579,19 @@ class Kegiatan_adm extends Controller
 		//chk rules
 		if ($this->form_validation->run() == FALSE)
 		{
-			
-		    
+
+
             $vdata['mhash']  = u_encrypt_hash($id);
 
-		
+
 			log_message("DEBUG","efrm_proc() : info [ VALIDATION FAILED ]");
 
 			//fwd
 			$this->load->view('kegiatan.edit.frm.php',$vdata);
-			return;		
+			return;
 		}
-  
-    
+
+
 		//set p-data
 		$pdata               = null;
 		$pdata['name']       = quotes_to_entities(trim($this->input->get_post('name'   , true)));
@@ -599,22 +599,22 @@ class Kegiatan_adm extends Controller
 
 		//sdt
     	$pdata['publish']       = trim($this->input->get_post('publish'    , true));
-    	
-	
+
+
 
 		$pdata['created_by'] = $this->etc->get_created_by();
 		$pdata['updated_by'] = $this->etc->get_updated_by();
 		$pdata['id']         = $id;
-	
-	
+
+
 		//upd8 it;-)
 		$ddata = $this->kegiatan_model->update($pdata);
-		
+
 		if($ddata['status'])
-		{ 
+		{
 			//set status
 			$this->etc->set_success_message('Successfully updated data.');
-		
+
 		}
 		else
 		{
@@ -624,25 +624,25 @@ class Kegiatan_adm extends Controller
 
 		//fwd
 		redirect(site_url("kegiatan_adm/view"));
-		
-        
+
+
 		return;
-		
-		
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	| @name
 	|      - dfrm
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - show the delete form confirmation msg
@@ -655,10 +655,10 @@ class Kegiatan_adm extends Controller
 
 		//params
 		log_message("DEBUG","dfrm() : info-params [ $hash : $id ]");
-		
+
 		//calc-hash
 		$hstatus = u_decrypt_hash($id, $hash);
-		
+
 		//invalid id
 		if(!$hstatus)
 		{
@@ -668,45 +668,45 @@ class Kegiatan_adm extends Controller
 			redirect(site_url("kegiatan_adm/view"));
 			return;
 		}
-		
+
 		//get rec
 		$gdata = $this->kegiatan_model->select_by_id( array('id' => $id) );
-		
+
 		//invalid id
 		if(!$gdata['status'])
 		{
 			//set status
 			$this->etc->set_error_message('There is something wrong with the data.');
-		
+
 			//fwd
 			redirect(site_url("kegiatan_adm/view"));
 			return;
 		}
 
-		
-		
-		
+
+
+
 		//fmt view data
 		$vdata['jData_Total']    = 0;
 		$vdata['jData']          = $gdata['data'];
 		$vdata['jData_Hidden']   = array('id'=> $id, 'hash' => $hash);
-		
-		
+
+
 		//view
 		$this->load->view('kegiatan.delete.frm.php',$vdata);
-                     
+
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - dfrm_proc
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @contentription
 	|      - show the delete form confirmation msg
@@ -720,7 +720,7 @@ class Kegiatan_adm extends Controller
 		//get chk post
 		$id   = trim($this->input->get_post('id'));
 		$hash = trim($this->input->get_post('hash'));
-		
+
 		//params
 		log_message("DEBUG","dfrm_proc() : info-params [ $hash : $id ]");
 
@@ -730,7 +730,7 @@ class Kegiatan_adm extends Controller
 		{
 			//set status
 			log_message("DEBUG","dfrm_proc() : info [ CANCELLED ]");
-			
+
 			//fwd
 			redirect(site_url("kegiatan_adm/view"));
 			return;
@@ -745,9 +745,9 @@ class Kegiatan_adm extends Controller
 		{
 			//set status
 			$this->etc->set_error_message('There is something wrong with the data.');
-			
+
 			log_message("DEBUG","dfrm_proc() : info [ DECRYPT FAILED ]");
-			
+
 			//fwd
 			redirect(site_url("kegiatan_adm/view"));
 			return;
@@ -763,24 +763,24 @@ class Kegiatan_adm extends Controller
 			$this->etc->set_error_message('There is something wrong with the data.');
 
 			log_message("DEBUG","dfrm_proc() : info [ NOT IN DB ]");
-			
+
 			//fwd
 			redirect(site_url("kegiatan_adm/view"));
 			return;
 		}
-		
-    
+
+
 		//delete it;-)
 		$ddata = $this->kegiatan_model->delete(array(
 								'id'         => $id,
 								'updated_by' => $this->etc->get_updated_by(),
-							     )	
+							     )
 						           );
 		if($ddata['status'])
 		{
 			//set status
 			$this->etc->set_success_message('Successfully deleted data.');
-		
+
 		}
 		else
 		{
@@ -791,8 +791,8 @@ class Kegiatan_adm extends Controller
 		//fwd
 		redirect(site_url("kegiatan_adm/view"));
 		return;
-		
-		
+
+
 	}
 
 }
