@@ -1,5 +1,6 @@
 admin/.htaccess
-log/log-*.php
+apps/config/env_config.php
+apps/logs/log-*.php
 cache/*
 gui/userfiles
 webmail/.htaccess

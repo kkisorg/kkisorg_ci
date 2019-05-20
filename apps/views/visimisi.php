@@ -3,12 +3,12 @@
 
     <!-- Page Content -->
     <div class="container">
-        
+
         <!-- Content Row -->
         <div class="row">
         	<h2>Visi & Misi KKIS</h2>
-             
+
         </div>
-       
-<? //include('right.side.content.php'); ?>            
+
+<? //include('right.side.content.php'); ?>
 <?php include_once('footer_front.php')?>

@@ -940,9 +940,10 @@ class Content extends CI_Controller
         $keyadd = base64_decode($_POST['keyadd']);
 
         if($type=="romo")
-            $recipient = EMAIL_KONTAK_ROMO;
+            $recipient = $this->config->item('EMAIL_KONTAK_ROMO');
         else
-            $recipient = EMAIL_KONTAK;
+            $recipient = $this->config->item('EMAIL_KONTAK');
+        var_dump($recipient);
 
         // First, delete old captchas
 $expiration = time()-7200; // Two hour limit
@@ -981,7 +982,7 @@ if ($row->count == 0)
 
             $this->load->library('email');
 
-            $this->email->from('admin@kkis.org', 'Admin KKIS.org');
+            $this->email->from($this->config->item('DEFAULT_FROM_EMAIL'), 'Admin KKIS.org');
             $this->email->to($recipient);
 
             $this->email->subject($subject);
