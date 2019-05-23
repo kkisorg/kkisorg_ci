@@ -220,10 +220,10 @@ class User_model extends CI_Model
 	{
 		//fmt-params
 		$data= null;
-		$mail= addslashes(trim($pdata['mail']));
-		$pid = addslashes(trim($pdata['id']));
+		$mail= isset($pdata['mail']) ? addslashes(trim($pdata['mail'])) : null;
+		$pid = isset($pdata['id']) ? addslashes(trim($pdata['id'])) : null;
 
-		$pidwhr = ( $pdata['id']>0)?(" AND id!= '$pid' "):("");
+		$pidwhr = isset($pdata['id']) && ( $pdata['id']>0 ) ? (" AND id != '$pid' ") : "";
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS

@@ -5,6 +5,9 @@ require('env_config.php');
 
 define('SITE_URL', $config['base_url']);
 
+define('DEFAULT_REMEMBER_ME_COOKIE_NAME', $config['DEFAULT_REMEMBER_ME_COOKIE_NAME']);
+define('DEFAULT_REMEMBER_ME_COOKIE_MAX', $config['DEFAULT_REMEMBER_ME_COOKIE_MAX']);
+
 //path image
 define('FILEPATH_USERFILES',  './gui/userfiles/');
 

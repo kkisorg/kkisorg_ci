@@ -281,7 +281,6 @@ class Dombaku_adm extends CI_Controller
 		$this->etc->check_permission('DOMBAKU.ADD');
 
 
-		$vdata['bdata'] = $blist;
 		$vdata['jData_Cal']         = 1;
 		//set data
 		$vdata['jData_publish_list'] = $this->config->item('DEFAULT_PUBLISH_NOTPUBLISH_LIST');
@@ -355,7 +354,6 @@ class Dombaku_adm extends CI_Controller
 			$pdata['jData_publish_list'] = $this->config->item('DEFAULT_PUBLISH_NOTPUBLISH_LIST');
 
 
-			$pdata['bdata'] = $blist;
 
 			//fwd
 			$this->load->view('dombaku.add.frm.php',$pdata);

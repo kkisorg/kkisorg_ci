@@ -326,7 +326,7 @@ class Bacaanmingguan_model extends CI_Model
 
 		$sth = $this->db->query($sql);
 		$ok  = $sth->num_rows();
-		$tot = 0;
+		$mtotal = 0;
 
 		//get data
 		if ($ok > 0)

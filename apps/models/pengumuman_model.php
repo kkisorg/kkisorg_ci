@@ -204,7 +204,7 @@ class Pengumuman_model extends CI_Model
 		//fmt-params
 		$data= null;
 		$id  = addslashes(trim($pdata['id']));
-        $where = $pdata['where'];
+        $where = isset($pdata['where']) ? $pdata['where'] : null;
 
 		//exec
 		$sql = "SELECT SQL_CALC_FOUND_ROWS
