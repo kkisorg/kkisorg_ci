@@ -76,7 +76,9 @@ class Page_model extends CI_Model
 		if ($ok > 0)
 		{
 		   $data  = $sth->row();
-		}
+       } else {
+           $data = null;
+       }
 
 		//tracing ;-)
 		log_message("DEBUG","select_by_id() : info [ $sql : #$ok ] ");

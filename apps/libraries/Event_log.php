@@ -5,13 +5,13 @@
 |--------------------------------------------------------------------------
 | @Desc    : user model
 | @Date    : 2010-04-02
-| @Version : 1.0 
+| @Version : 1.0
 | @By      : bayugyug@gmail.com
-|  
 |
 |
-| @Modified By  :  
-| @Modified Date: 
+|
+| @Modified By  :
+| @Modified Date:
 */
 
 if ( ! defined('BASEPATH')) exit('No direct script access allowed');
@@ -20,21 +20,21 @@ class Event_log
 {
 	//private ;-)
 	protected $CI;
-	
+
 	/**
 	| @name
 	|      - constructor
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
-	|      - 
+	|      -
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function __construct()
 	{
 		//loaders here ;-)
@@ -42,41 +42,41 @@ class Event_log
 		$this->CI  =& get_instance();
 		$this->CI->load->database();
 	}
-	
-	
+
+
 	/**
 	| @name
 	|      - dump
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
 	**/
 	function dump($msg=null)
 	{
 		$this->dmp($msg);
 	}
-	
+
 	/**
 	| @name
 	|      - dmp
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      - ref-id
 	|
 	| @description
-	|      - 
+	|      -
 	|
-	**/		
+	**/
 	function dmp($msg=null)
 	{
 		 //fmt-params
@@ -90,20 +90,20 @@ class Event_log
 					 $_SERVER['HTTP_USER_AGENT'],
 				    ));
 		$uri      = addslashes(trim($uri));
-		
-		
+
+
 		//exec
 		$sql = "
 			 INSERT INTO event_log (
-			 	remarks, 
-			 	uri, 
-			 	created, 
+			 	remarks,
+			 	uri,
+			 	created,
 			 	created_by
-			 	) 
+			 	)
 			 VALUES (
-			 	'$msg', 
-			 	'$uri', 
-			 	Now(), 
+			 	'$msg',
+			 	'$uri',
+			 	Now(),
 			 	'$by'
 			 	)
 		       ";
@@ -112,7 +112,7 @@ class Event_log
 		$ok  = $this->CI->db->affected_rows();
 
 		//get ref
-		$ref = $this->CI->db->insert_id();				
+		$ref = $this->CI->db->insert_id();
 
 		//tracing ;-)
 		log_message("DEBUG","add() : info [ $sql : #$ok #$ref ] ");
@@ -123,7 +123,7 @@ class Event_log
 	}
 
 
-       
+
 
 
 
@@ -132,7 +132,7 @@ class Event_log
 	|      - get
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -143,23 +143,23 @@ class Event_log
 	**/
 	function get($pdata=null)
 	{
-		
+
 		//fmt-params
 		$data     = array();
 		$order    = addslashes(trim($pdata['order']));
 		$limit    = addslashes(trim($pdata['limit'] ));
-		  
+
 		//exec
-		$sql = " SELECT 
-				SQL_CALC_FOUND_ROWS 
+		$sql = " SELECT
+				SQL_CALC_FOUND_ROWS
 				a.remarks,
 				a.uri,
 				a.created,
 				(SELECT name FROM user WHERE id=a.created_by ) AS created_by
 			 FROM event_log  a
-			
+
 			 WHERE 1=1
-			 
+
 			     $order
 			     $limit
 			 ";
@@ -173,7 +173,7 @@ class Event_log
 			{
 			     $data[] = $row;
 			}
-			
+
 			//exec
 			$tot = $this->get_found_rows();
 		}
@@ -191,7 +191,7 @@ class Event_log
 	|      - get_found_rows
 	|
 	| @params
-	|      - 
+	|      -
 	|
 	| @return
 	|      -
@@ -204,7 +204,7 @@ class Event_log
 	{
 		//init
 		$total = 0;
-		$query = " SELECT FOUND_ROWS() as rows";
+		$query = " SELECT FOUND_ROWS() as `rows`";
 		$sth   = $this->CI->db->query( $query );
 		$row   = $sth->row_array();
 		$total = intval($row['rows']);
@@ -214,7 +214,7 @@ class Event_log
 
 		//give it back pls ;-)
 		return $total;
-	}	
+	}
 
 
 

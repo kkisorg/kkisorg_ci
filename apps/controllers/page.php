@@ -73,7 +73,7 @@ class Page extends CI_Controller
 
 		//set data
 		$vdata['jData_Total']        = 0;
-		$vdata['jData']              = $gdata['data'];
+		$vdata['jData']              = null;
 		$vdata['jData_Hidden']       = array('lang_id'=>$lang_id);
 
         $vdata['page_list']   = $this->config->item('PAGE_LIST');
@@ -109,7 +109,7 @@ class Page extends CI_Controller
 
 		$vdata['page_list']   = $this->config->item('PAGE_LIST');
 		$pdata['show_editor'] = $vdata['page_list'][$pdata['page_name']]['show_editor'];
-		$pdata['show_image'] = $vdata['page_list'][$pdata['page_name']]['show_image'];
+		$pdata['show_image'] = isset($vdata['page_list'][$pdata['page_name']]['show_image']) ? $vdata['page_list'][$pdata['page_name']]['show_image'] : 0;
 
         //get rec
 		$gdata = $this->page->select_by_id($pdata);
@@ -118,7 +118,7 @@ class Page extends CI_Controller
 		//set data
 		$vdata['jData_Total']        = 0;
 		$vdata['jData']              = $gdata['data'];
-		$vdata['jData_Hidden']       = array('page_name'=> $pdata['page_name'],'lang_id'=>$pdata['lang_id'],'show_editor'=>$pdata['show_editor'],'show_image'=>$pdata['show_image']);
+		$vdata['jData_Hidden']       = array('page_name'=> $pdata['page_name'],'lang_id'=>isset($pdata['lang_id']) ? $pdata['lang_id'] : null,'show_editor'=>$pdata['show_editor'],'show_image'=>$pdata['show_image']);
 
 
         $vdata['pagename'] = $pdata['page_name'];

@@ -3,15 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?=($content=='')?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>">
+    <meta name="description" content="<?=!isset($content)?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>">
     <meta name="author" content="">
-    <meta property="og:image" content="<?=($thumbImg=='')?FILEPATH_UI.'images/logo.png':$thumbImg;?>">
-    <meta property="og:title" content="<?=($title=='')?'Home - KKIS.org':$title.' - KKIS.org';?>"/>
-    <meta property="og:description" content="<?=($content=='')?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>"/>
+    <meta property="og:image" content="<?=!isset($thumbImg)?FILEPATH_UI.'images/logo.png':$thumbImg;?>">
+    <meta property="og:title" content="<?=!isset($title)?'Home - KKIS.org':$title.' - KKIS.org';?>"/>
+    <meta property="og:description" content="<?=!isset($content)?'Home - KKIS.org':substr(strip_tags($content),0,100).'...';?>"/>
 	<meta http-equiv="Cache-Control" content="no-cache" />
 	<meta http-equiv="Pragma" content="no-cache" />
 	<meta http-equiv="Expires" content="0" />
-    <title><?=($title=='')?'Home | KKIS':$title;?></title>
+    <title><?=!isset($title)?'Home | KKIS':$title;?></title>
 
 	<!-- core CSS -->
     <link href="<?=FILEPATH_UI;?>css/bootstrap.css" rel="stylesheet">

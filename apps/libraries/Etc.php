@@ -168,7 +168,7 @@ class Etc
 						'sess_user_name'	=> $udata['data']->name,
 						'sess_role_id'	        => $udata['data']->role,
 						'sess_parent_id'	=> $udata['data']->parent,
-						'sess_district_id'	        => $udata['data']->district_id,
+						'sess_district_id'	        => isset($udata['data']->district_id) ? $udata['data']->district_id : null,
 						'sess_user_logged'	=> 1,
 						'sess_user_mhash'	=> u_encrypt_hash($udata['data']->id),
 						);

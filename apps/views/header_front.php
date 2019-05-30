@@ -11,18 +11,18 @@
     <meta name="author" content="">
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="<?=$page_title1==''?'KKIS - Keluarga Katolik Indonesia di Singapura':$page_title1;?>" />
+    <meta property="og:title" content="<?=!isset($page_title1)?'KKIS - Keluarga Katolik Indonesia di Singapura':$page_title1;?>" />
 
     <title><?=$page_title1==""?"KKIS - Keluarga Katolik Indonesia di Singapura":$page_title1;?></title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?=FILEPATH_UI;?>css/bootstrap.min.css" rel="stylesheet">
-    
+
     <link href="<?=FILEPATH_UI;?>css/jquery.smartmenus.bootstrap.css" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link href="<?=FILEPATH_UI;?>css/kkis.css" rel="stylesheet">
-    
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
