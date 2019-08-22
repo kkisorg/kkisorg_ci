@@ -1099,9 +1099,26 @@ if ($row->count == 0)
 
 	function visimisikkis()
 	{
-		//$vdata['page_title'] = 'Visi & Misi KKIS';
-		//$vdata['page_title1'] = 'Visi & Misi KKIS';
-        $this->load->view('visimisi.php',$vdata);
+		$vdata['page_title'] = 'Visi & Misi KKIS';
+		$vdata['page_title1'] = 'Visi & Misi KKIS';
+        $vdata['list'] = '
+            <h3>Visi KKIS</h3>
+            <p>Menjadi wadah bagi semua umat katolik berbahasa Indonesia di Singapura dan membantu serta melayani umat memenuhi kebutuhan rohani dan sosial mereka di Singapura.</p>
+            <h3>Misi KKIS</h3>
+            <ol>
+                <li>Menjadi wadah, bagi umat Katolik berbahasa Indonesa di Singapura, yang semakin mendekatkan umatnya kepada Tuhan.</li>
+                <li>Pengurus mengadakan kegiatan-kegiatan rutin* / tidak rutin yang bersifat rohani (meningkatkan iman) dan bersifat sosial dengan patuh kepada ketentuan Keuskupan Agung Singapura dan juga kepada peraturan-peraturan Pemerintah negara Singapura.</li>
+                <li>Membina relasi dan keakraban (juga melalui orang tua mereka), membuat mereka merasa nyaman; yang direalisasikan dengan kegiatan seperti olahraga, piknik, seni, dsb.</li>
+                <li>Lebih memperkenalkan keberadaan KKIS dan pelayanan Sakramen-sakramen oleh KKIS kepada kepada orang-orang di Indonesia melalui paroki-paroki.</li>
+                <li>Mendokumentasikan prosedur-prosedur yang sering kali dipakai, misalnya prosedur mengundang pembicara, prosedur menanggapi permintaan bantuan dana, prosedur menjawab kelompok paduan suara yang mau mengisi koor di misa KKIS.</li>
+                <li>Memulai dan membina hubungan dengan mahasiswa katolik Indonesia; mengadakan acara selamat datang bagi pelajar di saat mereka baru datang untuk memulai tahun ajaran.</li>
+                <li>Memulai dan mengembangkan aktivitas kelompok Migran dan kelompok Pelaut.</li>
+                <li>Mengadakan retret bagi Pengurus KKIS, setahun sekali.</li>
+                <li>Saling mendukung, memelihara dan membina bidang-bidang dan unit-unit yang ada.</li>
+                <li>Membina hubungan yang baik dengan komunitas-komunitas katolik lainnya.</li>
+            </ol>
+            ';
+        $this->load->view('content.list.php',$vdata);
 	}
 
 
