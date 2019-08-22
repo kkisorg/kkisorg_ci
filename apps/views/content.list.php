@@ -11,8 +11,8 @@
                 <div class="col-md-12">
                 <div align="center"><?=$list;?></div>
                 <div class="pagination pagination-centered">
-      						<?=$gData_pagination;?>
-      					</div>        
+      						<?=isset($gData_pagination)?$gData_pagination:null;?>
+      					</div>
                 </div>
             </div><!--/.row-->
 
