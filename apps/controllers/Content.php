@@ -1074,7 +1074,8 @@ if ($row->count == 0)
 		//$vdata['list'] = $res['data']->page_v;
 		$vdata['page_title'] = 'Struktur Organisasi KKIS';
 		$vdata['page_title1'] = 'Struktur Organisasi KKIS';
-		$imgdata = '<p align="center"><img src="'.SITE_URL.'/gui/images/pengurus20162018.jpg" class="img-responsive"></p>';
+        # $imgdata = '<p align="center"><img src="'.SITE_URL.'/gui/images/pengurus20162018.jpg" class="img-responsive"></p>';
+		$imgdata = '<p align="center"></p>';
 		$vdata['list'] = $imgdata; //"Under construction";
 
         	$this->load->view('content.list.php',$vdata);
