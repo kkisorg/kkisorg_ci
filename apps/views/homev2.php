@@ -437,46 +437,61 @@ height=155&amp;wkst=1&amp;hl=id&amp;bgcolor=%23999999&amp;src=calendar.kkis%40gm
         <div class="container wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="600ms">
             <div class="center">
             <h3>Lokasi Misa Berbahasa Indonesia</h3>
-            <p class="lead">Setiap Hari Minggu pukul 15.30</p>
             </div>
 
             <div class="row">
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="widget">
                         <h3>Minggu I:</h3>
                         <ul>
                             <li>Gereja Our Lady Perpetual Succour (OLPS)</li>
                             <li>31 Siglap Hill<br> Singapore 456085 <a href="https://www.google.com/maps/place/31+Siglap+Hill,+Singapore+456085"><i class="fa fa-map-marker"></i></a></li>
+                            <li>Pukul 15.30</li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
+                    <div class="widget">
+                        <h3>Sabtu II (Misa Senja):</h3>
+                        <ul>
+                            <li>Gereja Our Lady Star of the Sea</li>
+                            <li>10 Yishun Street 22<br> Singapore 768579 <a href="https://www.google.com/maps/place/10+Yishun+Street+22,+Singapore+768579"><i class="fa fa-map-marker"></i></a></li>
+                            <li>Pukul 18.30</li>
+                        </ul>
+                    </div>
+                </div><!--/.col-md-3-->
+
+                <div class="col-md-4 col-sm-6">
                     <div class="widget">
                         <h3>Minggu II & IV :</h3>
                         <ul>
                             <li>Gereja St. Bernadette</li>
                             <li>12 Zion Road<br> Singapore 247731 <a href="https://www.google.com/maps/place/12+Zion+Rd,+Singapore+247731"><i class="fa fa-map-marker"></i></a></li>
+                            <li>Pukul 15.30</li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="widget">
                         <h3>Minggu III :</h3>
                         <ul>
                             <li>Gereja St Mary of the Angels (SMOTA)</li>
                             <li>5 Bukit Batok East Ave 2<br> Singapore 659918 <a href="https://www.google.com/maps/place/5+Bukit+Batok+East+Avenue+2,+Singapore+659918"><i class="fa fa-map-marker"></i></a></li>
+                            <li>Pukul 15.00</li>
+
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
 
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="widget">
                         <h3>Minggu V:</h3>
                         <ul>
                             <li>Gereja Blessed Sacrament</li>
                             <li>1 Commonwealth Drive<br> Singapore 149603 <a href="https://www.google.com/maps/place/1+Commonwealth+Dr,+Singapore+149603"><i class="fa fa-map-marker"></i></a></li>
+                            <li>Pukul 15.00</li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
