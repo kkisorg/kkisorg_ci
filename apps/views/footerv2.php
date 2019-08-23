@@ -10,7 +10,7 @@
                     	<li><a href="<?=site_url();?>">Home</a></li>
                     	<li><a href="<?=site_url('content/kontak');?>">Kontak</a></li>
                         <li><a href="http://eepurl.com/boiRoH">Berlangganan Dombaku</a></li>
-                        <li><a href="#">Follow us &nbsp;<i class="fa fa-facebook"></i></a></li>
+                        <li><a href="https://www.facebook.com/kkis.org/" target="_blank">Follow us &nbsp;<i class="fa fa-facebook"></i></a></li>
                     </ul>
                 </div>
             </div>
