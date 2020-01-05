@@ -446,7 +446,7 @@ height=155&amp;wkst=1&amp;hl=id&amp;bgcolor=%23999999&amp;src=calendar.kkis%40gm
                         <ul>
                             <li>Gereja Our Lady Perpetual Succour (OLPS)</li>
                             <li>31 Siglap Hill<br> Singapore 456085 <a href="https://www.google.com/maps/place/31+Siglap+Hill,+Singapore+456085"><i class="fa fa-map-marker"></i></a></li>
-                            <li>Pukul 15.30</li>
+                            <li>Pukul 15.00</li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
@@ -468,7 +468,7 @@ height=155&amp;wkst=1&amp;hl=id&amp;bgcolor=%23999999&amp;src=calendar.kkis%40gm
                         <ul>
                             <li>Gereja St. Bernadette</li>
                             <li>12 Zion Road<br> Singapore 247731 <a href="https://www.google.com/maps/place/12+Zion+Rd,+Singapore+247731"><i class="fa fa-map-marker"></i></a></li>
-                            <li>Pukul 15.30</li>
+                            <li>Pukul 15.00</li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
@@ -491,7 +491,7 @@ height=155&amp;wkst=1&amp;hl=id&amp;bgcolor=%23999999&amp;src=calendar.kkis%40gm
                         <ul>
                             <li>Gereja Blessed Sacrament</li>
                             <li>1 Commonwealth Drive<br> Singapore 149603 <a href="https://www.google.com/maps/place/1+Commonwealth+Dr,+Singapore+149603"><i class="fa fa-map-marker"></i></a></li>
-                            <li>Pukul 15.30</li>
+                            <li>Pukul 15.00</li>
                         </ul>
                     </div>
                 </div><!--/.col-md-3-->
